@@ -1,0 +1,12 @@
+C:\1Programacion\Tercer cuatrimestre\Programacion\Ecommerce\Data\bin\Debug\net6.0\Data.deps.json
+C:\1Programacion\Tercer cuatrimestre\Programacion\Ecommerce\Data\bin\Debug\net6.0\Data.dll
+C:\1Programacion\Tercer cuatrimestre\Programacion\Ecommerce\Data\bin\Debug\net6.0\Data.pdb
+C:\1Programacion\Tercer cuatrimestre\Programacion\Ecommerce\Data\obj\Debug\net6.0\Data.csproj.AssemblyReference.cache
+C:\1Programacion\Tercer cuatrimestre\Programacion\Ecommerce\Data\obj\Debug\net6.0\Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\1Programacion\Tercer cuatrimestre\Programacion\Ecommerce\Data\obj\Debug\net6.0\Data.AssemblyInfoInputs.cache
+C:\1Programacion\Tercer cuatrimestre\Programacion\Ecommerce\Data\obj\Debug\net6.0\Data.AssemblyInfo.cs
+C:\1Programacion\Tercer cuatrimestre\Programacion\Ecommerce\Data\obj\Debug\net6.0\Data.csproj.CoreCompileInputs.cache
+C:\1Programacion\Tercer cuatrimestre\Programacion\Ecommerce\Data\obj\Debug\net6.0\Data.dll
+C:\1Programacion\Tercer cuatrimestre\Programacion\Ecommerce\Data\obj\Debug\net6.0\refint\Data.dll
+C:\1Programacion\Tercer cuatrimestre\Programacion\Ecommerce\Data\obj\Debug\net6.0\Data.pdb
+C:\1Programacion\Tercer cuatrimestre\Programacion\Ecommerce\Data\obj\Debug\net6.0\ref\Data.dll
