@@ -15,35 +15,35 @@ namespace Ecommerce.Controllers
         [HttpGet("GetUsers")]
         public ActionResult<List<User>> GetUsers()
         {
-            var response = _userService.ListarProductos();
+            var response = _userService.GetUsers();
             return Ok(response);
         }
 
         [HttpGet("GetUsers/{id}")]
         public ActionResult<User> GetUserById(int id)
         {
-            var response = _userService.ListarProductosPorId(id);
+            var response = _userService.GetUserById(id);
             return Ok(response);
         }
 
         [HttpPost("PostUser")]
         public ActionResult<User> PostUser([FromBody] User user)
         {
-            var response = _userService.AgregarProducto(user);
+            var response = _userService.PostUser(user);
             return Ok(response);
         }
 
         [HttpPut("PutUser/{id}")]
         public ActionResult<User> PutUser(int id, [FromBody] User user)
         {
-            var response = _userService.ActualizarProducto(id, user);
+            var response = _userService.PutUser(id, user);
             return Ok(response);
         }
 
         [HttpDelete("DeleteUser/{id}")]
-        public ActionResult<User> PutUser(int id)
+        public ActionResult<User> DeleteUser(int id)
         {
-            var response = _userService.EliminarProducto(id);
+            var response = _userService.DeleteUser(id);
             return Ok(response);
         }
     }

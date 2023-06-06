@@ -5,33 +5,29 @@ namespace Services
 {
     public class UserService
     {
-        UserRepository repository = new UserRepository();
+        UserRepository _userRepository = new UserRepository();
         public User GetUserById(int id)
         {
-            return repository.GetUserById(id);
+            return _userRepository.GetUserById(id);
         }
         public User GetUsers()
         {
-            UserRepository repository = new UserRepository();
-            return repository.GetUsers();
+            return _userRepository.GetUsers();
 
         }
         public User PostUser()
         {
-            UserRepository repository = new UserRepository();
-            return repository.PostUser();
+            return _userRepository.PostUser();
 
         }
         public User PutUser(int id)
         {
-            UserRepository repository = new UserRepository();
-            return repository.PutUser(id);
+            return _userRepository.PutUser(id);
 
         }
         public User DeleteUser(int id)
         {
-            UserRepository repository = new UserRepository();
-            return repository.DeleteUser(id);
+            return _userRepository.DeleteUser(id);
 
         }
     }
