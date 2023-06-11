@@ -1,4 +1,5 @@
 ﻿using Data.Entities;
+using Data.Models;
 using Data.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,40 +11,37 @@ namespace Data.Repositories
 {
     public class ProductRepository
     {
-        public static List<Product> Products = new List<Product>()
-        {
-            new Product
-            {
-            Id = 1,
-            Name = "product1",
-            Description = "description1"
-            },
-            new Product
-            {
-            Id = 2,
-            Name = "product2",
-            Description = "description2"
-            },
-        };
-        public Product? GetProductById(int id)
-        {
-            return Products.FirstOrDefault(x => x.Id == id);
-        }
-        public List<Product?> GetProducts()
+        public List<Producto> GetProducts()
         {
             return Products;
         }
-        public void PostProduct(Product product)
+
+        public Producto GetProductById(int id)
         {
-            Products.Add(product);
+            Producto producto = Products.Where(x => x.IdProducto == id).FirstOrDefault();
+
+            return producto;
         }
-        public void PutProduct(int id)
+        public Producto PostProduct(Producto producto)
         {
-            Products;
+            Products.Add(producto);
+
+            return producto;
+        }
+        public List<Producto> PutProduct(int id, Producto producto)
+        {
+            var productoAModificar = Products.Where(x => x.IdProducto == id).First();
+            productoAModificar.Id = producto.Id;
+            productoAModificar.Descripcion = producto.Nombre;
+            productoAModificar.SubTotal = producto.Apellido;
+            productoAModificar.PrecioUnitario = producto.IdRol;
+
+            return Users;
         }
         public void DeleteProduct(int id)
         {
-            Products.Remove(x => x.Id == id);
+            Producto producto = Products.Where(w => w.Id == id).First();
+            Products.Remove(producto);
         }
     }
 }

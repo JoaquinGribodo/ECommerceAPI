@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Data.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Services;
 
 namespace Ecommerce.Controllers
 {
@@ -7,40 +9,40 @@ namespace Ecommerce.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly _productService = new ProductService();
-        [HttpGet("GetProduct")]
-        public ActionResult<List<Product>> GetProduct()
+        private ProductService _productService;
+
+        private ProductController(ProductService productService)
         {
-            var response = _productService.ListarProductos();
-            return Ok(response);
+            _productService = productService;
+        }
+        [HttpGet("GetProducts")]
+        public ActionResult<List<Producto>> GetProducts()
+        {
+            return Ok(_productService.GetProducts());
         }
 
-        [HttpGet("GetProduct/{id}")]
-        public ActionResult<Product> GetProductById(int id)
+        [HttpGet("GetProducts/{id}")]
+        public ActionResult<Producto> GetProductById(int id)
         {
-            var response = _productService.ListarProductosPorId(id);
-            return Ok(response);
+            return Ok(_productService.GetProductById(id));
         }
 
         [HttpPost("PostProduct")]
-        public ActionResult<Product> PostProduct([FromBody] Product product)
+        public ActionResult<Producto> PostProduct([FromBody] Producto producto)
         {
-            var response = _productService.AgregarProducto(product);
-            return Ok(response);
+            return Ok(_productService.PostProduct(producto));
         }
 
         [HttpPut("PutProduct/{id}")]
-        public ActionResult<Product> PutProduct(int id, [FromBody] Product product)
+        public ActionResult<Producto> PutProduct(int id, [FromBody] Producto producto)
         {
-            var response = _productService.ActualizarProducto(id, product);
-            return Ok(response);
+            return Ok(_productService.PutProduct(id, producto));
         }
 
         [HttpDelete("DeleteProduct/{id}")]
-        public ActionResult<Product> DeleteProduct(int id)
+        public ActionResult<Producto> DeleteProduct(int id)
         {
-            var response = _productService.EliminarProducto(id);
-            return Ok(response);
+            return Ok(_productService.DeleteProduct(id));
         }
     }
 }

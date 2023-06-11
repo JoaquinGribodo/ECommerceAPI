@@ -1,4 +1,5 @@
 ﻿using Data.Entities;
+using Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,42 +10,37 @@ namespace Data.Repositories
 {
     public class UserRepository
     {
-        public static List<User> Users = new List<User>()
-        {
-            new User
-            {
-            Id = 1,
-            Name = "belu",
-            Email = "belu@belu",
-            Password = "jgh"
-            },
-            new User
-            {
-            Id = 2,
-            Name = "flor",
-            Email = "flor@flor",
-            Password = "aas"
-            },
-        };
-        public User ? GetUserById(int id)
-        {
-            return Users.FirstOrDefault(x => x.Id == id);
-        }
-        public List<User?> GetUsers()
+        public List<Usuario> GetUsers()
         {
             return Users;
         }
-        public void PostUser(User user)
+
+        public Usuario GetUserById(int id)
         {
-            Users.Add(user);
+            Usuario usuario = Users.Where(x => x.IdProducto == id).FirstOrDefault();
+
+            return usuario;
         }
-        public void PutUser(int id)
+        public Usuario PostUser(Usuario usuario)
         {
-            Users;
+            Users.Add(usuario);
+
+            return usuario;
+        }
+        public List<Usuario> PutUser(int id, Usuario usuario)
+        {
+            var usuarioAModificar = Users.Where(x => x.IdProducto == id).First();
+            usuarioAModificar.Id = usuario.Id;
+            usuarioAModificar.Nombre = usuario.Nombre;
+            usuarioAModificar.Apellido = usuario.Apellido;
+            usuarioAModificar.IdRol = usuario.IdRol;
+
+            return Users;
         }
         public void DeleteUser(int id)
         {
-            Users.Remove(x => x.Id == id);
+            Usuario usuario = Users.Where(w => w.Id == id).First();
+            Users.Remove(usuario);
         }
     }
 }

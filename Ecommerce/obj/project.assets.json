@@ -1137,9 +1137,6 @@
       "Data/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.5"
-        },
         "compile": {
           "bin/placeholder/Data.dll": {}
         },
@@ -3478,11 +3475,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\UTN\\Segundo año - Primer cuatrimestre\\Programación III\\Ecommerce\\Ecommerce\\Ecommerce.csproj",
+      "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\UTN\\Segundo año - Primer cuatrimestre\\Programación III\\ECommerceAPI\\Ecommerce\\Ecommerce.csproj",
       "projectName": "Ecommerce",
-      "projectPath": "C:\\Users\\Usuario\\Desktop\\UTN\\Segundo año - Primer cuatrimestre\\Programación III\\Ecommerce\\Ecommerce\\Ecommerce.csproj",
+      "projectPath": "C:\\Users\\Usuario\\Desktop\\UTN\\Segundo año - Primer cuatrimestre\\Programación III\\ECommerceAPI\\Ecommerce\\Ecommerce.csproj",
       "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Usuario\\Desktop\\UTN\\Segundo año - Primer cuatrimestre\\Programación III\\Ecommerce\\Ecommerce\\obj\\",
+      "outputPath": "C:\\Users\\Usuario\\Desktop\\UTN\\Segundo año - Primer cuatrimestre\\Programación III\\ECommerceAPI\\Ecommerce\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3500,8 +3497,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\Usuario\\Desktop\\UTN\\Segundo año - Primer cuatrimestre\\Programación III\\Ecommerce\\Services\\Services.csproj": {
-              "projectPath": "C:\\Users\\Usuario\\Desktop\\UTN\\Segundo año - Primer cuatrimestre\\Programación III\\Ecommerce\\Services\\Services.csproj"
+            "C:\\Users\\Usuario\\Desktop\\UTN\\Segundo año - Primer cuatrimestre\\Programación III\\ECommerceAPI\\Services\\Services.csproj": {
+              "projectPath": "C:\\Users\\Usuario\\Desktop\\UTN\\Segundo año - Primer cuatrimestre\\Programación III\\ECommerceAPI\\Services\\Services.csproj"
             }
           }
         }

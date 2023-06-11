@@ -1,37 +1,45 @@
-﻿using Data.Entities;
+﻿using Data.Models;
 using Data.Repositories;
 
 namespace Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
-        UserRepository _userRepository = new UserRepository();
-        public User GetUserById(int id)
+        private UserRepository _userRepository { get; set; }
+
+        public UserService(UserRepository userRepository) 
+        {
+            _userRepository = userRepository;
+        }
+
+        private UserService() { }
+        
+        public Usuario GetUserById(int id)
         {
             return _userRepository.GetUserById(id);
         }
-        public User GetUsers()
+
+        public List<Usuario> GetUsers() 
         {
             return _userRepository.GetUsers();
-
         }
-        public User PostUser()
+
+        public List<Usuario> PutUser(int id, Usuario usuario)
         {
-            return _userRepository.PostUser();
-
+            return _userRepository.PutUser(id, usuario);
         }
-        public User PutUser(int id)
+
+        public Usuario PostUser(Usuario usuario)
         {
-            return _userRepository.PutUser(id);
-
+            return _userRepository.PostUser(usuario);
         }
-        public User DeleteUser(int id)
+
+        public void DeleteUser(int id)
         {
-            return _userRepository.DeleteUser(id);
-
+             _userRepository.DeleteUser(id);
         }
+
     }
-}
 }
 }
 

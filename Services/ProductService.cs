@@ -1,4 +1,5 @@
 ﻿using Data.Entities;
+using Data.Models;
 using Data.Models.Entities;
 using Data.Repositories;
 using System;
@@ -9,32 +10,40 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public class ProductService
+    public class ProductService : IProductService
     {
-        ProductRepository _productRepository = new ProductRepository();
-        public Product GetUserById(int id)
-        {
-            return _productRepository.GetUserById(id);
-        }
-        public Product GetUsers()
-        {
-            return _productRepository.GetUsers();
+        private ProductRepository _productRepository { get; set; }
 
-        }
-        public Product PostUser()
+        public ProductService(ProductRepository productRepository)
         {
-            return _productRepository.PostUser();
-
+            _productRepository = productRepository;
         }
-        public Product PutUser(int id)
-        {
-            return _productRepository.PutUser(id);
 
+        private ProductService() { }
+
+        public Producto GetProductById(int id)
+        {
+            return _productRepository.GetProductById(id);
         }
-        public Product DeleteUser(int id)
-        {
-            return _productRepository.DeleteUser(id);
 
+        public List<Producto> GetProducts()
+        {
+            return _productRepository.GetProducts();
+        }
+
+        public List<Producto> PutProduct(int id, Producto producto)
+        {
+            return _productRepository.PutProduct(id, producto);
+        }
+
+        public Producto PostProduct(Producto producto)
+        {
+            return _productRepository.PostProduct(producto);
+        }
+
+        public void DeleteProduct(int id)
+        {
+            _productRepository.DeleteProduct(id);
         }
     }
 }

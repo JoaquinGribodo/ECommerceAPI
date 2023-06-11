@@ -1,4 +1,4 @@
-﻿using Data.Entities;
+﻿using Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services;
@@ -9,42 +9,40 @@ namespace Ecommerce.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        ////establecer un endpoint, devuelve un JSON
-        
-        private readonly UserService _userService = new UserService();
-        [HttpGet("GetUsers")]
-        public ActionResult<List<User>> GetUsers()
+        private UserService _userService;
+
+        private UserController(UserService userService)
         {
-            var response = _userService.GetUsers();
-            return Ok(response);
+            _userService = userService;
+        }
+        [HttpGet("GetUsers")]
+        public ActionResult<List<Usuario>> GetUsers()
+        {
+            return Ok(_userService.GetUsers());
         }
 
         [HttpGet("GetUsers/{id}")]
-        public ActionResult<User> GetUserById(int id)
+        public ActionResult<Usuario> GetUserById(int id)
         {
-            var response = _userService.GetUserById(id);
-            return Ok(response);
+            return Ok(_userService.GetUserById(id));
         }
 
         [HttpPost("PostUser")]
-        public ActionResult<User> PostUser([FromBody] User user)
+        public ActionResult<Usuario> PostUser([FromBody] Usuario user)
         {
-            var response = _userService.PostUser(user);
-            return Ok(response);
+            return Ok(_userService.PostUser(user));
         }
 
         [HttpPut("PutUser/{id}")]
-        public ActionResult<User> PutUser(int id, [FromBody] User user)
+        public ActionResult<Usuario> PutUser(int id, [FromBody] Usuario user)
         {
-            var response = _userService.PutUser(id, user);
-            return Ok(response);
+            return Ok(_userService.PutUser(id, user));
         }
 
         [HttpDelete("DeleteUser/{id}")]
-        public ActionResult<User> DeleteUser(int id)
+        public ActionResult<Usuario> DeleteUser(int id)
         {
-            var response = _userService.DeleteUser(id);
-            return Ok(response);
+            return Ok(_userService.DeleteUser(id));
         }
     }
 }
