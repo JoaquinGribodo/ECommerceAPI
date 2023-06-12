@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\Data",
-    "\\Data\\Repositories"
+    "\\Data\\Repositories",
+    "\\Services"
   ],
-  "SelectedNode": "\\Data\\Repositories\\ProductRepository.cs",
+  "SelectedNode": "\\Services\\UserService.cs",
   "PreviewInSolutionExplorer": false
 }
