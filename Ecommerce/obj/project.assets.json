@@ -1137,6 +1137,9 @@
       "Data/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.5"
+        },
         "compile": {
           "bin/placeholder/Data.dll": {}
         },
