@@ -1,6 +1,6 @@
-﻿using Data.Entities;
-using Data.Models;
-using Data.Models.Entities;
+﻿using Data.Models;
+using Data.Models.DTO;
+using Data.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,37 +11,56 @@ namespace Data.Repositories
 {
     public class ProductRepository
     {
+
+        private readonly ECommerceDBContext _dbContext;
+        public ProductRepository(ECommerceDBContext eCommerceDBContext) { 
+            _dbContext = eCommerceDBContext;
+        }
         public List<Producto> GetProducts()
         {
-            return Products;
+            return _dbContext.Producto.ToList();
         }
 
-        public Producto GetProductById(int id)
+        public ProductDTO GetProductById(int id)
         {
-            Producto producto = Products.Where(x => x.IdProducto == id).FirstOrDefault();
+            Producto producto = _dbContext.Producto.Where(x => x.Id == id).FirstOrDefault();
+            ProductDTO productDTO = new ProductDTO()
+            {
+                Id = producto.Id,
+                Descripcion = producto.Descripcion,
+                SubTotal = producto.SubTotal,
+                PrecioUnitario = producto.PrecioUnitario
+            };
 
-            return producto;
+            return productDTO;
         }
-        public Producto PostProduct(Producto producto)
-        {
-            Products.Add(producto);
+        public Producto PostProduct(ProductViewModel producto) //ViewModel: ingresa un producto nuevo
+        {                                                        //DTO: trae datos de la BD para el frontend
+            Producto producto1 = new Producto()
+            {
+                Descripcion = producto.Descripcion,
+                SubTotal = producto.SubTotal,
+                PrecioUnitario = producto.PrecioUnitario
+            };
+            _dbContext.Producto.Add(producto1);
+            _dbContext.SaveChanges();
 
-            return producto;
+            return producto1;
         }
-        public List<Producto> PutProduct(int id, Producto producto)
+        public Producto PutProduct(int id, ProductViewModel producto)
         {
-            var productoAModificar = Products.Where(x => x.IdProducto == id).First();
-            productoAModificar.Id = producto.Id;
-            productoAModificar.Descripcion = producto.Nombre;
-            productoAModificar.SubTotal = producto.Apellido;
-            productoAModificar.PrecioUnitario = producto.IdRol;
+            var productoAModificar = _dbContext.Producto.Where(x => x.Id == id).FirstOrDefault();
+            productoAModificar.Descripcion = producto.Descripcion;
+            productoAModificar.SubTotal = producto.SubTotal;
+            productoAModificar.PrecioUnitario = producto.PrecioUnitario;
 
-            return Users;
+            return productoAModificar;
         }
         public void DeleteProduct(int id)
         {
-            Producto producto = Products.Where(w => w.Id == id).First();
-            Products.Remove(producto);
+            Producto producto = _dbContext.Producto.Where(w => w.Id == id).FirstOrDefault();
+            _dbContext.Producto.Remove(producto);
+            _dbContext.SaveChanges();
         }
     }
 }

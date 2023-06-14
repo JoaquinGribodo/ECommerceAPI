@@ -1,4 +1,6 @@
 ﻿using Data.Models;
+using Data.Models.ViewModel;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +11,14 @@ namespace Data.Repositories
 {
     public class SaleRepository
     {
+        private readonly ECommerceDBContext _dbContext;
+        public SaleRepository(ECommerceDBContext eCommerceDBContext)
+        {
+            _dbContext = eCommerceDBContext;
+        }
         public List<Venta> GetSales()
         {
-            return Sales;
+            return _dbContext.Venta.ToList();
         }
 
         public Venta GetSaleById(int id)
@@ -20,11 +27,20 @@ namespace Data.Repositories
 
             return venta;
         }
-        public Venta PostSale(Venta venta)
+        public Venta PostSale(SaleViewModel venta)
         {
-            Sales.Add(venta);
+            Venta venta1 = new Venta()
+            {
+                IdProducto = venta.IdProducto,
+                IdUsuario = venta.IdUsuario,
+                FechaVenta = venta.FechaVenta,
+                MontoTotal = venta.MontoTotal,
 
-            return venta;
+            };
+            _dbContext.Venta.Add(venta1);
+            _dbContext.SaveChanges();
+
+            return venta1;
         }
         public List<Venta> PutSale(int id, Venta venta)
         {

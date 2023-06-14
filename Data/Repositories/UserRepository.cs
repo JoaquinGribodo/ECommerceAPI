@@ -1,5 +1,7 @@
-﻿using Data.Entities;
-using Data.Models;
+﻿using Data.Models;
+using Data.Models.DTO;
+using Data.Models.ViewModel;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +12,14 @@ namespace Data.Repositories
 {
     public class UserRepository
     {
+        private readonly ECommerceDBContext _dbContext;
+        public UserRepository(ECommerceDBContext eCommerceDBContext)
+        {
+            _dbContext = eCommerceDBContext;
+        }
         public List<Usuario> GetUsers()
         {
-            return Users;
+            return _dbContext.Usuario.ToList();
         }
 
         public Usuario GetUserById(int id)
@@ -21,11 +28,20 @@ namespace Data.Repositories
 
             return usuario;
         }
-        public Usuario PostUser(Usuario usuario)
+        public Usuario PostUser(UserViewModel usuario)
         {
-            Users.Add(usuario);
+            Usuario usuario1 = new Usuario()
+            {
+                Nombre = usuario.Nombre,
+                Apellido = usuario.Apellido,
+                Correo = usuario.Correo,
+                IdRol = usuario.IdRol,
 
-            return usuario;
+            };
+            _dbContext.Usuario.Add(usuario1);
+            _dbContext.SaveChanges();
+
+            return usuario1;
         }
         public List<Usuario> PutUser(int id, Usuario usuario)
         {

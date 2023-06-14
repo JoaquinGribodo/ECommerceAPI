@@ -18,7 +18,7 @@ namespace Data.Models
         public string Correo { get; set; }
         public int? IdRol { get; set; }
 
-        public virtual RolUsuario IdRolNavigation { get; set; }
+        public virtual RolUsuario IdRolNavigation { get; set; } 
         public virtual ICollection<Venta> Venta { get; set; }
     }
 }

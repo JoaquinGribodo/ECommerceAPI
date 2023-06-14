@@ -1,6 +1,5 @@
-﻿using Data.Entities;
-using Data.Models;
-using Data.Models.Entities;
+﻿using Data.Models;
+using Data.Models.ViewModel;
 using Data.Repositories;
 using System;
 using System.Collections.Generic;
@@ -31,12 +30,12 @@ namespace Services
             return _productRepository.GetProducts();
         }
 
-        public List<Producto> PutProduct(int id, Producto producto)
+        public Producto PutProduct(int id, ProductViewModel producto)
         {
             return _productRepository.PutProduct(id, producto);
         }
 
-        public Producto PostProduct(Producto producto)
+        public Producto PostProduct(ProductViewModel producto)
         {
             return _productRepository.PostProduct(producto);
         }

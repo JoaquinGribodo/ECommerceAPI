@@ -33,3 +33,13 @@ C:\1Programacion\Tercer cuatrimestre\Programacion\Ecommerce\Ecommerce\bin\Debug\
 C:\1Programacion\Tercer cuatrimestre\Programacion\Ecommerce\Ecommerce\bin\Debug\net6.0\Services.dll
 C:\1Programacion\Tercer cuatrimestre\Programacion\Ecommerce\Ecommerce\bin\Debug\net6.0\Services.pdb
 C:\1Programacion\Tercer cuatrimestre\Programacion\Ecommerce\Ecommerce\bin\Debug\net6.0\Data.pdb
+C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Ecommerce\obj\Debug\net6.0\Ecommerce.csproj.AssemblyReference.cache
+C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Ecommerce\obj\Debug\net6.0\Ecommerce.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Ecommerce\obj\Debug\net6.0\Ecommerce.AssemblyInfoInputs.cache
+C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Ecommerce\obj\Debug\net6.0\Ecommerce.AssemblyInfo.cs
+C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Ecommerce\obj\Debug\net6.0\Ecommerce.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Ecommerce\obj\Debug\net6.0\Ecommerce.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Ecommerce\obj\Debug\net6.0\Ecommerce.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Ecommerce\obj\Debug\net6.0\Ecommerce.dll
+C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Ecommerce\obj\Debug\net6.0\refint\Ecommerce.dll
+C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Ecommerce\obj\Debug\net6.0\Ecommerce.pdb

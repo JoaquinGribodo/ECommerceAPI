@@ -18,31 +18,59 @@ namespace Ecommerce.Controllers
         [HttpGet("GetUsers")]
         public ActionResult<List<Usuario>> GetUsers()
         {
-            return Ok(_userService.GetUsers());
+            var response = _userService.GetUsers();
+            if(response.Count == 0)
+            {
+                return NotFound();
+            }
+            return Ok(response);
         }
 
         [HttpGet("GetUsers/{id}")]
         public ActionResult<Usuario> GetUserById(int id)
         {
-            return Ok(_userService.GetUserById(id));
+            var response = _userService.GetUserById(id);
+            if (response == null)
+            {
+                return NotFound();
+            }
+            return Ok(response);
         }
 
         [HttpPost("PostUser")]
         public ActionResult<Usuario> PostUser([FromBody] Usuario user)
         {
-            return Ok(_userService.PostUser(user));
+            var response = _userService.PostUser(user);
+            if (response == null)
+            {
+                return BadRequest();  
+            }
+            string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
+            string apiAndEndPointUrl = $"api/User/GetUsers";
+            string locationUrl = $"{baseUrl}/{apiAndEndPointUrl} / {response.Id}";
+            return Created(locationUrl, response);
         }
 
         [HttpPut("PutUser/{id}")]
         public ActionResult<Usuario> PutUser(int id, [FromBody] Usuario user)
         {
-            return Ok(_userService.PutUser(id, user));
+            var response = _userService.PutUser(id, user);
+            if (response == null)
+            {
+                return NotFound();
+            }
+            return Ok(response);
         }
 
         [HttpDelete("DeleteUser/{id}")]
         public ActionResult<Usuario> DeleteUser(int id)
         {
-            return Ok(_userService.DeleteUser(id));
+            var response = _userService.DeleteUser(id);
+            if (response == null)
+            {
+                return NotFound();
+            }
+            return Ok(response);
         }
     }
 }
