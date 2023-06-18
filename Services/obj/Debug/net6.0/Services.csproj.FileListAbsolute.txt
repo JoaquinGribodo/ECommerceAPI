@@ -21,3 +21,10 @@ C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación II
 C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Services\obj\Debug\net6.0\Services.dll
 C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Services\obj\Debug\net6.0\refint\Services.dll
 C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Services\obj\Debug\net6.0\Services.pdb
+C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Services\bin\Debug\net6.0\Services.deps.json
+C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Services\bin\Debug\net6.0\Services.dll
+C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Services\bin\Debug\net6.0\Services.pdb
+C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Services\bin\Debug\net6.0\Data.dll
+C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Services\bin\Debug\net6.0\Data.pdb
+C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Services\obj\Debug\net6.0\Services.csproj.CopyComplete
+C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Services\obj\Debug\net6.0\ref\Services.dll

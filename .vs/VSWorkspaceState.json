@@ -4,8 +4,9 @@
     "\\Data",
     "\\Data\\Repositories",
     "\\Ecommerce",
+    "\\Ecommerce\\Controllers",
     "\\Services"
   ],
-  "SelectedNode": "\\Ecommerce\\Program.cs",
+  "SelectedNode": "\\Services\\UserService.cs",
   "PreviewInSolutionExplorer": false
 }

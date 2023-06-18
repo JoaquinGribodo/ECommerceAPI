@@ -1,4 +1,5 @@
 ﻿using Data.Models;
+using Data.Models.DTO;
 using Data.Models.ViewModel;
 using Data.Repositories;
 using System;
@@ -18,24 +19,22 @@ namespace Services
             _productRepository = productRepository;
         }
 
-        private ProductService() { }
-
-        public Producto GetProductById(int id)
+        public ProductDTO GetProductById(int id)
         {
             return _productRepository.GetProductById(id);
         }
 
-        public List<Producto> GetProducts()
+        public List<ProductDTO> GetProducts()
         {
             return _productRepository.GetProducts();
         }
 
-        public Producto PutProduct(int id, ProductViewModel producto)
+        public void PutProduct(int id, ProductViewModel producto)
         {
-            return _productRepository.PutProduct(id, producto);
+            _productRepository.PutProduct(id, producto);
         }
 
-        public Producto PostProduct(ProductViewModel producto)
+        public ProductDTO PostProduct(ProductViewModel producto)
         {
             return _productRepository.PostProduct(producto);
         }

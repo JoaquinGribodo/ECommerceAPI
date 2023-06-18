@@ -18,3 +18,9 @@ C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación II
 C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Data\obj\Debug\net6.0\Data.dll
 C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Data\obj\Debug\net6.0\refint\Data.dll
 C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Data\obj\Debug\net6.0\Data.pdb
+C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Data\bin\Debug\net6.0\Data.deps.json
+C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Data\bin\Debug\net6.0\Data.runtimeconfig.json
+C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Data\bin\Debug\net6.0\Data.dll
+C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Data\bin\Debug\net6.0\Data.pdb
+C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Data\obj\Debug\net6.0\Data.genruntimeconfig.cache
+C:\Users\Usuario\Desktop\UTN\Segundo año - Primer cuatrimestre\Programación III\ECommerceAPI\Data\obj\Debug\net6.0\ref\Data.dll

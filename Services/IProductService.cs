@@ -11,10 +11,10 @@ namespace Services
 {
     public interface IProductService
     {
-        List<Producto> GetProducts();
+        List<ProductDTO> GetProducts();
         ProductDTO GetProductById(int id);
-        Producto PostProduct(ProductViewModel producto);
-        Producto PutProduct(int id, ProductViewModel producto);
+        ProductDTO PostProduct(ProductViewModel producto);
+        void PutProduct(int id, ProductViewModel producto);
         void DeleteProduct(int id);
     }
 }

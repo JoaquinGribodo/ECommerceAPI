@@ -17,46 +17,83 @@ namespace Data.Repositories
         {
             _dbContext = eCommerceDBContext;
         }
-        public List<Usuario> GetUsers()
+        public List<UserDTO> GetUsers()
         {
-            return _dbContext.Usuario.ToList();
-        }
-
-        public Usuario GetUserById(int id)
-        {
-            Usuario usuario = Users.Where(x => x.IdProducto == id).FirstOrDefault();
-
-            return usuario;
-        }
-        public Usuario PostUser(UserViewModel usuario)
-        {
-            Usuario usuario1 = new Usuario()
+            List<UserDTO> response = new List<UserDTO>();
+            List<Usuario> users = _dbContext.Usuario.ToList();
+            foreach (var user in users)
             {
-                Nombre = usuario.Nombre,
+                response.Add(new UserDTO()
+                {
+                    Id = user.Id,
+                    Nombre = user.Nombre,
+                    Apellido = user.Apellido,
+                    Correo = user.Correo,
+                    IdRol = user.IdRol,
+                });
+            }
+            return response;
+        }
+
+        public UserDTO GetUserById(int id)
+        {
+            UserDTO response = new UserDTO();
+            Usuario user = _dbContext.Usuario.FirstOrDefault(x => x.Id == id);
+            if (user != null)
+            {
+                response.Id = user.Id;
+                response.Nombre = user.Nombre;
+                response.Apellido = user.Apellido;
+                response.Correo = user.Correo;
+                response.IdRol = user.IdRol;
+            }
+            return response;
+        }
+        public UserDTO PostUser(UserViewModel usuario)
+        {                                                       
+            _dbContext.Usuario.Add(new Usuario()
+            {
                 Apellido = usuario.Apellido,
+                Nombre = usuario.Nombre,
                 Correo = usuario.Correo,
                 IdRol = usuario.IdRol,
 
-            };
-            _dbContext.Usuario.Add(usuario1);
+            });
             _dbContext.SaveChanges();
 
-            return usuario1;
+            var addedUser = _dbContext.Usuario.OrderBy(x => x.Id).Last();
+            UserDTO response = new UserDTO()
+            {
+                Id = addedUser.Id,
+                Nombre = addedUser.Nombre,
+                Apellido = addedUser.Apellido,
+                Correo = addedUser.Correo,
+                IdRol = addedUser.IdRol,
+            };
+            return response;
         }
-        public List<Usuario> PutUser(int id, Usuario usuario)
+        public void PutUser(int id, UserViewModel usuario)
         {
-            var usuarioAModificar = Users.Where(x => x.IdProducto == id).First();
-            usuarioAModificar.Id = usuario.Id;
-            usuarioAModificar.Nombre = usuario.Nombre;
-            usuarioAModificar.Apellido = usuario.Apellido;
-            usuarioAModificar.IdRol = usuario.IdRol;
+            UserDTO response = new UserDTO();
+            var usuarioAModificar = _dbContext.Usuario.FirstOrDefault(x => x.Id == id);
+            if (usuario != null)
+            {
+                usuarioAModificar.Apellido = usuario.Apellido;
+                usuarioAModificar.Nombre = usuario.Nombre;
+                usuarioAModificar.Correo = usuario.Correo;
+                usuarioAModificar.IdRol = usuario.IdRol;
 
-            return Users;
+                _dbContext.SaveChanges();
+            }
         }
         public void DeleteUser(int id)
         {
-            Usuario usuario = Users.Where(w => w.Id == id).First();
-            Users.Remove(usuario);
+            Usuario usuario = _dbContext.Usuario.First(w => w.Id == id);
+            if (usuario != null)
+            {
+                _dbContext.Usuario.Remove(usuario);
+                _dbContext.SaveChanges();
+            }
         }
     }
 }

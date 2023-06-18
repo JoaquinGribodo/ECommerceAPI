@@ -1,4 +1,6 @@
 ﻿using Data.Models;
+using Data.Models.DTO;
+using Data.Models.ViewModel;
 using Data.Repositories;
 
 namespace Services
@@ -12,31 +14,29 @@ namespace Services
             _userRepository = userRepository;
         }
 
-        private UserService() { }
-        
-        public Usuario GetUserById(int id)
+        public UserDTO GetUserById(int id)
         {
             return _userRepository.GetUserById(id);
         }
 
-        public List<Usuario> GetUsers() 
+        public List<UserDTO> GetUsers()
         {
             return _userRepository.GetUsers();
         }
 
-        public List<Usuario> PutUser(int id, Usuario usuario)
+        public void PutUser(int id, UserViewModel usuario)
         {
-            return _userRepository.PutUser(id, usuario);
+            _userRepository.PutUser(id, usuario);
         }
 
-        public Usuario PostUser(Usuario usuario)
+        public UserDTO PostUser(UserViewModel usuario)
         {
             return _userRepository.PostUser(usuario);
         }
 
         public void DeleteUser(int id)
         {
-             _userRepository.DeleteUser(id);
+            _userRepository.DeleteUser(id);
         }
 
     }

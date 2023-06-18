@@ -1,4 +1,6 @@
 ﻿using Data.Models;
+using Data.Models.DTO;
+using Data.Models.ViewModel;
 using Data.Repositories;
 using System;
 using System.Collections.Generic;
@@ -17,24 +19,22 @@ namespace Services
             _saleRepository = saleRepository;
         }
 
-        private SaleService() { }
-
-        public Venta GetSaleById(int id)
+        public SaleDTO GetSaleById(int id)
         {
             return _saleRepository.GetSaleById(id);
         }
 
-        public List<Venta> GetSales()
+        public List<SaleDTO> GetSales()
         {
             return _saleRepository.GetSales();
         }
 
-        public List<Venta> PutSale(int id, Venta venta)
-        {
-            return _saleRepository.PutSale(id, venta);
+        public void PutSale(int id, SaleViewModel venta) 
+        { 
+            _saleRepository.PutSale(id, venta);
         }
 
-        public Venta PostSale(Venta venta)
+        public SaleDTO PostSale(SaleViewModel venta)
         {
             return _saleRepository.PostSale(venta);
         }

@@ -1,4 +1,6 @@
 ﻿using Data.Models;
+using Data.Models.DTO;
+using Data.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +11,10 @@ namespace Services
 {
     public interface IUserService
     {
-        List<Usuario> GetUsers();
-        Usuario GetUserById(int id);
-        Usuario PostUser(Usuario user);
-        List<Usuario> PutUser(int id, Usuario usuario);
+        List<UserDTO> GetUsers();
+        UserDTO GetUserById(int id);
+        UserDTO PostUser(UserViewModel usuario);
+        void PutUser(int id, UserViewModel usuario);
         void DeleteUser(int id);
     }
 }

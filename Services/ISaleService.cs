@@ -1,4 +1,6 @@
 ﻿using Data.Models;
+using Data.Models.DTO;
+using Data.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +11,10 @@ namespace Services
 {
     public interface ISaleService
     {
-        List<Venta> GetSales();
-        Venta GetSaleById(int id);
-        Venta PostSale(Venta venta);
-        List<Venta> PutSale(int id, Venta venta);
+        List<SaleDTO> GetSales();
+        SaleDTO GetSaleById(int id);
+        SaleDTO PostSale(SaleViewModel venta);
+        void PutSale(int id, SaleViewModel venta);
         void DeleteSale(int id);
     }
 }

@@ -12,7 +12,5 @@ namespace Data.Models.DTO
         public string Descripcion { get; set; } = string.Empty;
         public decimal? SubTotal { get; set; }
         public decimal? PrecioUnitario { get; set; }
-
-        public virtual ICollection<Venta> Venta { get; set; }
     }
 }

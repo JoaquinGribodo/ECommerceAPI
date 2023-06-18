@@ -1,4 +1,5 @@
 ﻿using Data.Models;
+using Data.Models.DTO;
 using Data.Models.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,14 +11,14 @@ namespace Ecommerce.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private ProductService _productService;
+        private IProductService _productService;
 
-        private ProductController(ProductService productService)
+        private ProductController(IProductService productService)
         {
             _productService = productService;
         }
         [HttpGet("GetProducts")]
-        public ActionResult<List<Producto>> GetProducts()
+        public ActionResult<List<ProductDTO>> GetProducts()
         {
             var response = _productService.GetProducts();
             if (response.Count == 0)
@@ -28,7 +29,7 @@ namespace Ecommerce.Controllers
         }
 
         [HttpGet("GetProducts/{id}")]
-        public ActionResult<Producto> GetProductById(int id)
+        public ActionResult<ProductDTO> GetProductById(int id)
         {
             var response = _productService.GetProductById(id);
             if (response == null)
@@ -39,7 +40,7 @@ namespace Ecommerce.Controllers
         }
 
         [HttpPost("PostProduct")]
-        public ActionResult<Producto> PostProduct([FromBody] ProductViewModel producto)
+        public ActionResult<ProductDTO> PostProduct([FromBody] ProductViewModel producto)
         {
             var response = _productService.PostProduct(producto);
             if (response == null)
@@ -53,25 +54,17 @@ namespace Ecommerce.Controllers
         }
 
         [HttpPut("PutProduct/{id}")]
-        public ActionResult<Producto> PutProduct(int id, [FromBody] ProductViewModel producto)
+        public ActionResult PutProduct(int id, [FromBody] ProductViewModel producto)
         {
-            var response = _productService.PutProduct(id, producto);
-            if (response == null)
-            {
-                return NotFound();
-            }
-            return Ok(response);
+            _productService.PutProduct(id, producto);
+            return Ok();
         }
 
         [HttpDelete("DeleteProduct/{id}")]
-        public ActionResult<Producto> DeleteProduct(int id)
+        public ActionResult<ProductDTO> DeleteProduct(int id)
         {
-            var response = _productService.DeleteProduct(id);
-            if (response == null)
-            {
-                return NotFound();
-            }
-            return Ok(response);
+            _productService.DeleteProduct(id);
+            return Ok();
         }
     }
 }

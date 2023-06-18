@@ -1,4 +1,5 @@
 ﻿using Data.Models;
+using Data.Models.DTO;
 using Data.Models.ViewModel;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,47 +17,83 @@ namespace Data.Repositories
         {
             _dbContext = eCommerceDBContext;
         }
-        public List<Venta> GetSales()
+        public List<SaleDTO> GetSales()
         {
-            return _dbContext.Venta.ToList();
+            List<SaleDTO> response = new List<SaleDTO>();
+            List<Venta> sales = _dbContext.Venta.ToList();
+            foreach (var sale in sales)
+            {
+                response.Add(new SaleDTO()
+                {
+                    Id = sale.Id,
+                    IdProducto = sale.IdProducto,
+                    IdUsuario = sale.IdUsuario,
+                    FechaVenta = sale.FechaVenta,
+                    MontoTotal = sale.MontoTotal,
+                });
+            }
+            return response;
         }
 
-        public Venta GetSaleById(int id)
+        public SaleDTO GetSaleById(int id)
         {
-            Venta venta = Sales.Where(x => x.IdVenta == id).FirstOrDefault();
+            SaleDTO response = new SaleDTO();
+            Venta venta = _dbContext.Venta.FirstOrDefault(x => x.Id == id);
+            if (venta != null)
+            {
+                response.Id = venta.Id;
+                response.IdProducto = venta.IdProducto;
+                response.IdUsuario = venta.IdUsuario;
+                response.FechaVenta = venta.FechaVenta;
+                response.MontoTotal = venta.MontoTotal;
 
-            return venta;
+            }
+            return response;
         }
-        public Venta PostSale(SaleViewModel venta)
-        {
-            Venta venta1 = new Venta()
+        public SaleDTO PostSale(SaleViewModel venta) 
+        {                                                        
+            _dbContext.Venta.Add(new Venta()
             {
                 IdProducto = venta.IdProducto,
                 IdUsuario = venta.IdUsuario,
                 FechaVenta = venta.FechaVenta,
                 MontoTotal = venta.MontoTotal,
-
-            };
-            _dbContext.Venta.Add(venta1);
+            });
             _dbContext.SaveChanges();
 
-            return venta1;
+            var addedSale = _dbContext.Venta.OrderBy(x => x.Id).Last();
+            SaleDTO response = new SaleDTO()
+            {
+                Id = addedSale.Id,
+                IdUsuario = addedSale.IdUsuario,
+                IdProducto = addedSale.IdProducto,
+                FechaVenta = addedSale.FechaVenta,
+                MontoTotal = addedSale.MontoTotal,
+            };
+            return response;
         }
-        public List<Venta> PutSale(int id, Venta venta)
+        public void PutSale(int id, SaleViewModel venta)
         {
-            var ventaAModificar = Sales.Where(x => x.Id == id).First();
-            ventaAModificar.Id = venta.Id;
-            ventaAModificar.IdProducto = venta.IdProducto;
-            ventaAModificar.IdUsuario = venta.IdUsuario;
-            ventaAModificar.FechaVenta = venta.FechaVenta;
-            ventaAModificar.MontoTotal = venta.MontoTotal;
+            SaleDTO response = new SaleDTO();
+            var ventaAModificar = _dbContext.Venta.FirstOrDefault(x => x.Id == id);
+            if (venta != null)
+            {
+                ventaAModificar.IdProducto = venta.IdProducto;
+                ventaAModificar.IdUsuario = venta.IdUsuario;
+                ventaAModificar.FechaVenta = venta.FechaVenta;
+                ventaAModificar.MontoTotal = venta.MontoTotal;
 
-            return Sales;
+                _dbContext.SaveChanges();
+            }
         }
         public void DeleteSale(int id)
         {
-            Venta venta = Sales.Where(w => w.Id == id).First();
-            Sales.Remove(venta);
+            Venta venta = _dbContext.Venta.First(w => w.Id == id);
+            if (venta != null)
+            {
+                _dbContext.Venta.Remove(venta);
+                _dbContext.SaveChanges();
+            }
         }
     }
 }
