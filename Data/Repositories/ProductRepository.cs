@@ -1,4 +1,6 @@
-﻿using Azure;
+﻿using AutoMapper;
+using Azure;
+using Data.Mappings;
 using Data.Models;
 using Data.Models.DTO;
 using Data.Models.ViewModel;
@@ -14,38 +16,22 @@ namespace Data.Repositories
     {
 
         private readonly ECommerceDBContext _dbContext;
+        private readonly IMapper _mapper;
+
         public ProductRepository(ECommerceDBContext eCommerceDBContext) { 
             _dbContext = eCommerceDBContext;
+            _mapper = AutoMapperConfig.Configure();
         }
         public List<ProductDTO> GetProducts()
         {
-            List<ProductDTO> response = new List<ProductDTO>();
-            List<Producto> products = _dbContext.Producto.ToList();
-            foreach (var product in products)
-            {
-                response.Add(new ProductDTO()
-                {
-                    Id = product.Id,
-                    Descripcion = product.Descripcion,
-                    SubTotal = product.SubTotal,
-                    PrecioUnitario = product.PrecioUnitario
-                });
-            }
-            return response;
+            return _mapper.Map<List<ProductDTO>>(_dbContext.Producto.ToList());
+
         }
 
         public ProductDTO GetProductById(int id)
         {
-            ProductDTO response = new ProductDTO();
-            Producto producto = _dbContext.Producto.FirstOrDefault(x => x.Id == id);
-            if (producto != null) 
-            {
-                response.Id = producto.Id;
-                response.Descripcion = producto.Descripcion;
-                response.SubTotal = producto.SubTotal;
-                response.PrecioUnitario = producto.PrecioUnitario;
-            }
-            return response;
+            return _mapper.Map<ProductDTO>(_dbContext.Producto.FirstOrDefault(x => x.Id == id));
+
         }
         public ProductDTO PostProduct(ProductViewModel producto) //ViewModel: ingresa un producto nuevo
         {                                                        //DTO: trae datos de la BD para el frontend
@@ -57,37 +43,28 @@ namespace Data.Repositories
             });
             _dbContext.SaveChanges();
 
-            var addedProduct = _dbContext.Producto.OrderBy(x => x.Id).Last();
-            ProductDTO response = new ProductDTO()
-            {
-                Id = addedProduct.Id,
-                Descripcion = addedProduct.Descripcion,
-                SubTotal = addedProduct.SubTotal,
-                PrecioUnitario = addedProduct.PrecioUnitario
-            };
-            return response;
-        }
-        public void PutProduct(int id, ProductViewModel producto)
-        {
-            ProductDTO response = new ProductDTO();
-            var productoAModificar = _dbContext.Producto.FirstOrDefault(x => x.Id == id);
-            if (producto != null)
-            {
-                productoAModificar.Descripcion = producto.Descripcion;
-                productoAModificar.SubTotal = producto.SubTotal;
-                productoAModificar.PrecioUnitario = producto.PrecioUnitario;
+            var lastProduct = _dbContext.Producto.OrderBy(x => x.Id).Last();
 
-                _dbContext.SaveChanges();
-            }
+            return _mapper.Map<ProductDTO>(lastProduct);
+        }
+        public ProductDTO PutProduct(ProductViewModel producto)
+        {
+            Producto productoDataBase = _dbContext.Producto.Single(f => f.Id == producto.Id);
+
+            productoDataBase.Descripcion = producto.Descripcion;
+            productoDataBase.PrecioUnitario = producto.PrecioUnitario;
+            productoDataBase.SubTotal = producto.SubTotal;
+            //productoDataBase.Venta = producto.Venta; CONSULTAR
+
+            _dbContext.SaveChanges();
+
+            var lastProduct = _dbContext.Producto.OrderBy(x => x.Id).Last();
+            return _mapper.Map<ProductDTO>(lastProduct);
         }
         public void DeleteProduct(int id)
         {
-            Producto producto = _dbContext.Producto.First(w => w.Id == id);
-            if(producto != null) 
-            {
-                _dbContext.Producto.Remove(producto);
-                _dbContext.SaveChanges();
-            }
+            _dbContext.Producto.Remove(_dbContext.Producto.Single(w => w.Id == id));
+            _dbContext.SaveChanges();
         }
     }
 }

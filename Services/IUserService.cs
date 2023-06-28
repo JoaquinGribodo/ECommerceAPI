@@ -14,7 +14,7 @@ namespace Services
         List<UserDTO> GetUsers();
         UserDTO GetUserById(int id);
         UserDTO PostUser(UserViewModel usuario);
-        void PutUser(int id, UserViewModel usuario);
+        UserDTO PutUser(UserViewModel usuario);
         void DeleteUser(int id);
     }
 }

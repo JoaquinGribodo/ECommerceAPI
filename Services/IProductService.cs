@@ -14,7 +14,7 @@ namespace Services
         List<ProductDTO> GetProducts();
         ProductDTO GetProductById(int id);
         ProductDTO PostProduct(ProductViewModel producto);
-        void PutProduct(int id, ProductViewModel producto);
+        ProductDTO PutProduct(ProductViewModel producto);
         void DeleteProduct(int id);
     }
 }

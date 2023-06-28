@@ -29,9 +29,9 @@ namespace Services
             return _saleRepository.GetSales();
         }
 
-        public void PutSale(int id, SaleViewModel venta) 
+        public SaleDTO PutSale(SaleViewModel venta) 
         { 
-            _saleRepository.PutSale(id, venta);
+            return _saleRepository.PutSale(venta);
         }
 
         public SaleDTO PostSale(SaleViewModel venta)

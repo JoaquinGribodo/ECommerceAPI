@@ -1,4 +1,6 @@
-﻿using Data.Models;
+﻿using AutoMapper;
+using Data.Mappings;
+using Data.Models;
 using Data.Models.DTO;
 using Data.Models.ViewModel;
 using Microsoft.EntityFrameworkCore;
@@ -13,87 +15,80 @@ namespace Data.Repositories
     public class UserRepository
     {
         private readonly ECommerceDBContext _dbContext;
+        private readonly IMapper _mapper;
         public UserRepository(ECommerceDBContext eCommerceDBContext)
         {
             _dbContext = eCommerceDBContext;
+            _mapper = AutoMapperConfig.Configure(); //Se inyecta acá porque la configuración no está en Program, está en una clase. Llama a la clase y al método.
         }
         public List<UserDTO> GetUsers()
         {
-            List<UserDTO> response = new List<UserDTO>();
-            List<Usuario> users = _dbContext.Usuario.ToList();
-            foreach (var user in users)
-            {
-                response.Add(new UserDTO()
-                {
-                    Id = user.Id,
-                    Nombre = user.Nombre,
-                    Apellido = user.Apellido,
-                    Correo = user.Correo,
-                    IdRol = user.IdRol,
-                });
-            }
-            return response;
+            //var listUsuarios = _dbContext.Usuario.ToList();
+            return _mapper.Map<List<UserDTO>>(_dbContext.Usuario.ToList());
+            //List<Usuario> users = _dbContext.Usuario.ToList();
+            //List<UserDTO> response = new List<UserDTO>();
+            //foreach (var user in users)
+            //{
+            //    UserDTO usuario = _mapper.Map<UserDTO>(user);
+            //    response.Add(usuario);
+            //}
+            //return response;
         }
 
         public UserDTO GetUserById(int id)
         {
-            UserDTO response = new UserDTO();
-            Usuario user = _dbContext.Usuario.FirstOrDefault(x => x.Id == id);
-            if (user != null)
-            {
-                response.Id = user.Id;
-                response.Nombre = user.Nombre;
-                response.Apellido = user.Apellido;
-                response.Correo = user.Correo;
-                response.IdRol = user.IdRol;
-            }
-            return response;
+            return _mapper.Map<UserDTO>(_dbContext.Usuario.Where(x => x.Id == id).FirstOrDefault());
+            //UserDTO response = new UserDTO();
+            //Usuario user = _dbContext.Usuario.FirstOrDefault(x => x.Id == id);
+            //if (user != null)
+            //{
+            //    response.Id = user.Id;
+            //    response.Nombre = user.Nombre;
+            //    response.Apellido = user.Apellido;
+            //    response.Correo = user.Correo;
+            //    response.IdRol = user.IdRol;
+            //}
+            //return response;
         }
         public UserDTO PostUser(UserViewModel usuario)
-        {                                                       
+        {
+
             _dbContext.Usuario.Add(new Usuario()
             {
-                Apellido = usuario.Apellido,
-                Nombre = usuario.Nombre,
-                Correo = usuario.Correo,
-                IdRol = usuario.IdRol,
-
+              Apellido = usuario.Apellido,
+              Nombre = usuario.Nombre,
+              Correo = usuario.Correo,
+              IdRol = _dbContext.RolUsuario.First(f => f.Id == usuario.IdRol).Id
             });
             _dbContext.SaveChanges();
 
-            var addedUser = _dbContext.Usuario.OrderBy(x => x.Id).Last();
-            UserDTO response = new UserDTO()
-            {
-                Id = addedUser.Id,
-                Nombre = addedUser.Nombre,
-                Apellido = addedUser.Apellido,
-                Correo = addedUser.Correo,
-                IdRol = addedUser.IdRol,
-            };
-            return response;
-        }
-        public void PutUser(int id, UserViewModel usuario)
-        {
-            UserDTO response = new UserDTO();
-            var usuarioAModificar = _dbContext.Usuario.FirstOrDefault(x => x.Id == id);
-            if (usuario != null)
-            {
-                usuarioAModificar.Apellido = usuario.Apellido;
-                usuarioAModificar.Nombre = usuario.Nombre;
-                usuarioAModificar.Correo = usuario.Correo;
-                usuarioAModificar.IdRol = usuario.IdRol;
+            var lastUser = _dbContext.Usuario.OrderBy(x => x.Id).Last();
 
-                _dbContext.SaveChanges();
-            }
+            return _mapper.Map<UserDTO>(lastUser);
+
+        }
+        public UserDTO PutUser(UserViewModel usuario)
+        {
+            Usuario usuarioDataBase = _dbContext.Usuario.Single(f => f.Id == usuario.Id);
+            usuarioDataBase.Nombre = usuario.Nombre;
+            usuarioDataBase.Correo = usuario.Correo;
+            usuarioDataBase.Apellido = usuario.Apellido;
+            usuarioDataBase.IdRol = _dbContext.RolUsuario.First(f => f.Id == usuario.IdRol).Id;
+
+            _dbContext.SaveChanges();
+
+            var lastUser = _dbContext.Usuario.OrderBy(x => x.Id).Last();
+            return _mapper.Map<UserDTO>(lastUser);
         }
         public void DeleteUser(int id)
         {
-            Usuario usuario = _dbContext.Usuario.First(w => w.Id == id);
-            if (usuario != null)
-            {
-                _dbContext.Usuario.Remove(usuario);
-                _dbContext.SaveChanges();
-            }
+            _dbContext.Usuario.Remove(_dbContext.Usuario.Single(w => w.Id == id));
+            _dbContext.SaveChanges();
+        }
+
+        public Usuario ValidateUser(string password, string username)
+        {
+            return _dbContext.Usuario.FirstOrDefault(u => u.Nombre == username && u.Apellido == password); //CONSULTAR
         }
     }
 }

@@ -24,9 +24,9 @@ namespace Services
             return _userRepository.GetUsers();
         }
 
-        public void PutUser(int id, UserViewModel usuario)
+        public UserDTO PutUser(UserViewModel usuario)
         {
-            _userRepository.PutUser(id, usuario);
+            return _userRepository.PutUser(usuario);
         }
 
         public UserDTO PostUser(UserViewModel usuario)

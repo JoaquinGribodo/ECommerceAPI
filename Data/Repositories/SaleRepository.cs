@@ -1,4 +1,6 @@
-﻿using Data.Models;
+﻿using AutoMapper;
+using Data.Mappings;
+using Data.Models;
 using Data.Models.DTO;
 using Data.Models.ViewModel;
 using Microsoft.EntityFrameworkCore;
@@ -13,42 +15,22 @@ namespace Data.Repositories
     public class SaleRepository
     {
         private readonly ECommerceDBContext _dbContext;
+        private readonly IMapper _mapper;
+
         public SaleRepository(ECommerceDBContext eCommerceDBContext)
         {
             _dbContext = eCommerceDBContext;
+            _mapper = AutoMapperConfig.Configure();
         }
         public List<SaleDTO> GetSales()
         {
-            List<SaleDTO> response = new List<SaleDTO>();
-            List<Venta> sales = _dbContext.Venta.ToList();
-            foreach (var sale in sales)
-            {
-                response.Add(new SaleDTO()
-                {
-                    Id = sale.Id,
-                    IdProducto = sale.IdProducto,
-                    IdUsuario = sale.IdUsuario,
-                    FechaVenta = sale.FechaVenta,
-                    MontoTotal = sale.MontoTotal,
-                });
-            }
-            return response;
+            return _mapper.Map<List<SaleDTO>>(_dbContext.Venta.ToList());
         }
 
         public SaleDTO GetSaleById(int id)
         {
-            SaleDTO response = new SaleDTO();
-            Venta venta = _dbContext.Venta.FirstOrDefault(x => x.Id == id);
-            if (venta != null)
-            {
-                response.Id = venta.Id;
-                response.IdProducto = venta.IdProducto;
-                response.IdUsuario = venta.IdUsuario;
-                response.FechaVenta = venta.FechaVenta;
-                response.MontoTotal = venta.MontoTotal;
+            return _mapper.Map<SaleDTO>(_dbContext.Venta.FirstOrDefault(x => x.Id == id));
 
-            }
-            return response;
         }
         public SaleDTO PostSale(SaleViewModel venta) 
         {                                                        
@@ -61,39 +43,27 @@ namespace Data.Repositories
             });
             _dbContext.SaveChanges();
 
-            var addedSale = _dbContext.Venta.OrderBy(x => x.Id).Last();
-            SaleDTO response = new SaleDTO()
-            {
-                Id = addedSale.Id,
-                IdUsuario = addedSale.IdUsuario,
-                IdProducto = addedSale.IdProducto,
-                FechaVenta = addedSale.FechaVenta,
-                MontoTotal = addedSale.MontoTotal,
-            };
-            return response;
-        }
-        public void PutSale(int id, SaleViewModel venta)
-        {
-            SaleDTO response = new SaleDTO();
-            var ventaAModificar = _dbContext.Venta.FirstOrDefault(x => x.Id == id);
-            if (venta != null)
-            {
-                ventaAModificar.IdProducto = venta.IdProducto;
-                ventaAModificar.IdUsuario = venta.IdUsuario;
-                ventaAModificar.FechaVenta = venta.FechaVenta;
-                ventaAModificar.MontoTotal = venta.MontoTotal;
+            var lastSale = _dbContext.Venta.OrderBy(x => x.Id).Last();
 
-                _dbContext.SaveChanges();
-            }
+            return _mapper.Map<SaleDTO>(lastSale);
+        }
+        public SaleDTO PutSale(SaleViewModel venta)
+        {
+            Venta ventaDataBase = _dbContext.Venta.Single(f => f.Id == venta.Id);
+            ventaDataBase.FechaVenta = venta.FechaVenta;
+            ventaDataBase.IdProducto = venta.IdProducto;
+            ventaDataBase.IdUsuario = venta.IdUsuario;
+            ventaDataBase.MontoTotal = venta.MontoTotal;
+
+            _dbContext.SaveChanges();
+
+            var lastSale = _dbContext.Venta.OrderBy(x => x.Id).Last();
+            return _mapper.Map<SaleDTO>(lastSale);
         }
         public void DeleteSale(int id)
         {
-            Venta venta = _dbContext.Venta.First(w => w.Id == id);
-            if (venta != null)
-            {
-                _dbContext.Venta.Remove(venta);
-                _dbContext.SaveChanges();
-            }
+            _dbContext.Venta.Remove(_dbContext.Venta.Single(w => w.Id == id));
+            _dbContext.SaveChanges();
         }
     }
 }

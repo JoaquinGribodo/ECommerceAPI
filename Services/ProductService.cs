@@ -29,9 +29,9 @@ namespace Services
             return _productRepository.GetProducts();
         }
 
-        public void PutProduct(int id, ProductViewModel producto)
+        public ProductDTO PutProduct(ProductViewModel producto)
         {
-            _productRepository.PutProduct(id, producto);
+            return _productRepository.PutProduct(producto);
         }
 
         public ProductDTO PostProduct(ProductViewModel producto)

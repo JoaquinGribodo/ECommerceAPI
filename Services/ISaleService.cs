@@ -14,7 +14,7 @@ namespace Services
         List<SaleDTO> GetSales();
         SaleDTO GetSaleById(int id);
         SaleDTO PostSale(SaleViewModel venta);
-        void PutSale(int id, SaleViewModel venta);
+        SaleDTO PutSale(SaleViewModel venta);
         void DeleteSale(int id);
     }
 }
