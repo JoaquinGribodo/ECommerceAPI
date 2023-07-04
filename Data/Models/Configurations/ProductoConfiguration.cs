@@ -12,12 +12,16 @@ namespace Data.Models.Configurations
     {
         public void Configure(EntityTypeBuilder<Producto> entity)
         {
-            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Id)
+                .ValueGeneratedNever()
+                .HasColumnName("id");
 
             entity.Property(e => e.Descripcion)
                 .HasMaxLength(20)
                 .IsUnicode(false)
                 .HasColumnName("descripcion");
+
+            entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
 
             entity.Property(e => e.PrecioUnitario)
                 .HasColumnType("decimal(18, 0)")

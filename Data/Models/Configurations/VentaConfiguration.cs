@@ -12,18 +12,17 @@ namespace Data.Models.Configurations
     {
         public void Configure(EntityTypeBuilder<Venta> entity)
         {
-            entity.HasKey(e => new { e.Id, e.IdProducto, e.IdUsuario })
-                .HasName("PK__Venta__51AE97FBD4C62B6D");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-
-            entity.Property(e => e.IdProducto).HasColumnName("id_producto");
-
-            entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
+            entity.Property(e => e.Id)
+                .ValueGeneratedNever()
+                .HasColumnName("id");
 
             entity.Property(e => e.FechaVenta)
                 .HasColumnType("datetime")
                 .HasColumnName("fecha_venta");
+
+            entity.Property(e => e.IdProducto).HasColumnName("id_producto");
+
+            entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
 
             entity.Property(e => e.MontoTotal)
                 .HasColumnType("decimal(18, 0)")
@@ -32,13 +31,11 @@ namespace Data.Models.Configurations
             entity.HasOne(d => d.IdProductoNavigation)
                 .WithMany(p => p.Venta)
                 .HasForeignKey(d => d.IdProducto)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Venta__id_produc__2E1BDC42");
 
             entity.HasOne(d => d.IdUsuarioNavigation)
                 .WithMany(p => p.Venta)
                 .HasForeignKey(d => d.IdUsuario)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Venta__id_usuari__2F10007B");
 
             OnConfigurePartial(entity);

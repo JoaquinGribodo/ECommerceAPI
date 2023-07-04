@@ -58,6 +58,7 @@ namespace Data.Repositories
               Apellido = usuario.Apellido,
               Nombre = usuario.Nombre,
               Correo = usuario.Correo,
+              Contrasenia = usuario.Contrasenia,
               IdRol = _dbContext.RolUsuario.First(f => f.Id == usuario.IdRol).Id
             });
             _dbContext.SaveChanges();
@@ -73,7 +74,8 @@ namespace Data.Repositories
             usuarioDataBase.Nombre = usuario.Nombre;
             usuarioDataBase.Correo = usuario.Correo;
             usuarioDataBase.Apellido = usuario.Apellido;
-            usuarioDataBase.IdRol = _dbContext.RolUsuario.First(f => f.Id == usuario.IdRol).Id;
+            usuarioDataBase.Contrasenia = usuario.Contrasenia;
+            usuarioDataBase.IdRol = _dbContext.RolUsuario.First(f => f.Id == usuario.IdRol).Id; //REVISAR
 
             _dbContext.SaveChanges();
 
@@ -86,9 +88,5 @@ namespace Data.Repositories
             _dbContext.SaveChanges();
         }
 
-        public Usuario ValidateUser(string password, string username)
-        {
-            return _dbContext.Usuario.FirstOrDefault(u => u.Nombre == username && u.Apellido == password); //CONSULTAR
-        }
     }
 }

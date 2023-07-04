@@ -12,6 +12,7 @@ namespace Data.Models.ViewModel
         public string Nombre { get; set; } = string.Empty;
         public string Apellido { get; set; } = string.Empty;
         public string Correo { get; set; } = string.Empty;
+        public string Contrasenia { get; set; } = string.Empty;
         public int? IdRol { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace Data.Mappings.Profiles
             CreateMap<UserViewModel, Usuario>();
 
             CreateMap<List<Usuario>, List<UserDTO>>()
-                .ConvertUsing(src => src.Select(e => new UserDTO { Nombre = e.Nombre, Id = e.Id, Apellido = e.Apellido, Correo = e.Correo }).ToList());
+                .ConvertUsing(src => src.Select(e => new UserDTO { Nombre = e.Nombre, Id = e.Id, Apellido = e.Apellido, Correo = e.Correo}).ToList());
                  //Indicar todas las propiedades
         }
     }

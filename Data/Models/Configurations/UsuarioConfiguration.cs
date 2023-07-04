@@ -12,12 +12,19 @@ namespace Data.Models.Configurations
     {
         public void Configure(EntityTypeBuilder<Usuario> entity)
         {
-            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Id)
+                .ValueGeneratedNever()
+                .HasColumnName("id");
 
             entity.Property(e => e.Apellido)
                 .HasMaxLength(20)
                 .IsUnicode(false)
                 .HasColumnName("apellido");
+
+            entity.Property(e => e.Contrasenia)
+                .HasMaxLength(256)
+                .IsUnicode(false)
+                .HasColumnName("contrasenia");
 
             entity.Property(e => e.Correo)
                 .HasMaxLength(20)

@@ -1,9 +1,11 @@
 ﻿using Data.Models;
 using Data.Models.Helper;
 using Data.Models.ViewModel;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Service.IServices;
+using Services.Helper;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -77,7 +79,7 @@ namespace Service.Services
                     {
                         new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                         new Claim(ClaimTypes.Email, user.Correo),
-                        new Claim(ClaimTypes.Role, _dbContext.Rol.First(x => x.Id == user.IdRol).Descripcion)
+                        new Claim(ClaimTypes.Role, _dbContext.RolUsuario.First(x => x.Id == user.IdRol).Descripcion)
                     }),
                 Expires = DateTime.UtcNow.AddHours(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
