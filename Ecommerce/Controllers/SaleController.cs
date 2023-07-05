@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services;
+using System.Security.Claims;
 
 namespace Ecommerce.Controllers
 {
@@ -27,13 +28,21 @@ namespace Ecommerce.Controllers
         {
             try
             {
-                var response = _saleService.GetSales();
-                if (response.Count == 0)
+                var role = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
+                if(role == "admin" || role == "superadmin")
                 {
-                    return NotFound("No pudo encontrarse la lista de ventas.");
+                    var response = _saleService.GetSales();
+                    if (response.Count == 0)
+                    {
+                        return NotFound("No pudo encontrarse la lista de ventas.");
 
+                    }
+                    return Ok(response);
                 }
-                return Ok(response);
+                else
+                {
+                    throw new Exception("No tiene permisos para acceder.");
+                }
             }
             catch (Exception exe)
             {
@@ -48,13 +57,21 @@ namespace Ecommerce.Controllers
         {
             try
             {
-                var response = _saleService.GetSaleById(id);
-                if (response == null)
+                var role = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
+                if(role == "admin" || role == "superadmin")
                 {
-                    return NotFound("No pudo encontrarse la venta correspondiente a ese Id.");
+                    var response = _saleService.GetSaleById(id);
+                    if (response == null)
+                    {
+                        return NotFound("No pudo encontrarse la venta correspondiente a esa ID.");
 
+                    }
+                    return Ok(response);
                 }
-                return Ok(response);
+                else
+                {
+                    throw new Exception("No tiene permisos para acceder.");
+                }
             }
             catch (Exception exe)
             {
@@ -69,15 +86,23 @@ namespace Ecommerce.Controllers
         {
             try
             {
-                var response = _saleService.PostSale(venta);
-                if (response == null)
+                var role = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
+                if(role == "admin" || role == "superadmin")
                 {
-                    return NotFound("No pudo agregarse la venta.");
+                    var response = _saleService.PostSale(venta);
+                    if (response == null)
+                    {
+                        return NotFound("No pudo agregarse la venta.");
+                    }
+                    string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
+                    string apiAndEndPointUrl = $"api/Sale/GetSales";
+                    string locationUrl = $"{baseUrl}/{apiAndEndPointUrl}/{response.Id}";
+                    return Created(locationUrl, response);
                 }
-                string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
-                string apiAndEndPointUrl = $"api/Sale/GetSales";
-                string locationUrl = $"{baseUrl}/{apiAndEndPointUrl}/{response.Id}";
-                return Created(locationUrl, response);
+                else
+                {
+                    throw new Exception("No tiene permisos para acceder.");
+                }
             }
             catch (Exception exe)
             {
@@ -91,11 +116,19 @@ namespace Ecommerce.Controllers
         {
             try
             {
-                var response = _saleService.PutSale(venta);
-                string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
-                string apiAndEndPointUrl = $"api/User/GetSales";
-                string locationUrl = $"{baseUrl}/{apiAndEndPointUrl}/{response.Id}";
-                return Created(locationUrl, response);
+                var role = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
+                if (role == "admin" || role == "superadmin")
+                {
+                    var response = _saleService.PutSale(venta);
+                    string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
+                    string apiAndEndPointUrl = $"api/User/GetSales";
+                    string locationUrl = $"{baseUrl}/{apiAndEndPointUrl}/{response.Id}";
+                    return Created(locationUrl, response);
+                }
+                else
+                {
+                    throw new Exception("No tiene permisos para acceder.");
+                }
             }
             catch (Exception exe)
             {
@@ -109,8 +142,16 @@ namespace Ecommerce.Controllers
         {
             try
             {
-                _saleService.DeleteSale(id);
-                return Ok();
+                var role = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
+                if (role == "admin" || role == "superadmin")
+                {
+                    _saleService.DeleteSale(id);
+                    return Ok();
+                }
+                else
+                {
+                    throw new Exception("No tiene permisos para acceder.");
+                }
             }
             catch (Exception exe)
             {

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services;
+using System.Security.Claims;
 
 namespace Ecommerce.Controllers
 {
@@ -27,12 +28,21 @@ namespace Ecommerce.Controllers
         {
             try
             {
-                var response = _userService.GetUsers();
-                if (response.Count == 0)
+                var role = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
+                if (role == "superadmin")
                 {
-                    return NotFound("No pudo encontrarse la lista de usuarios.");
+                    var response = _userService.GetUsers();
+                    if (response.Count == 0)
+                    {
+                        return NotFound("No pudo encontrarse la lista de usuarios.");
+                    }
+                    return Ok(response);
                 }
-                return Ok(response);
+                else
+                {
+                    throw new Exception("No tiene permisos para acceder.");
+                }
+
             }
             catch (Exception exe)
             {
@@ -45,27 +55,22 @@ namespace Ecommerce.Controllers
         [HttpGet("GetUsers/{id}")]
         public ActionResult<UserDTO> GetUserById(int id)
         {
-            //string? rol = User.Claims.FirstOrDefault(c => c.Properties.ContainsKey("role"))?.Value;
-
-            //if(rol == "admin")
-            //{
-            //    return Ok();
-            //}
-            //else
-            //{
-            //    return Unauthorized();
-            //}
-
-
             try
             {
-                var response = _userService.GetUserById(id);
-                if (response == null)
+                var role = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
+                if (role == "superadmin")
                 {
-                    return NotFound("No pudo encontrarse el usuario correspondiente a ese Id.");
+                    var response = _userService.GetUserById(id);
+                    if (response == null)
+                    {
+                        return NotFound("No pudo encontrarse el usuario correspondiente a ese Id.");
+                    }
+                    return Ok(response);
                 }
-                return Ok(response);
-
+                else
+                {
+                    throw new Exception("No tiene permisos para acceder.");
+                }
             }
             catch(Exception exe)
             {
@@ -75,20 +80,55 @@ namespace Ecommerce.Controllers
             
         }
 
+        [HttpGet("GetUserByEmail/{email}")]
+        public ActionResult<UserDTO> GetUserByEmail(string email)
+        {
+            try
+            {
+                var role = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
+                if (role == "admin" || role == "superadmin")
+                {
+                    var response = _userService.GetUserByEmail(email);
+                    if (response == null)
+                    {
+                        return NotFound("No pudo encontrarse el producto con esa descripción.");
+                    }
+                    return Ok(response);
+                }
+                else
+                {
+                    throw new Exception("No tiene permisos para acceder.");
+                }
+            }
+            catch (Exception exe)
+            {
+                _logger.LogError($"Ocurrió un error en el método GetProductByDescription: {exe.Message}");
+                return BadRequest($"{exe.Message}");
+            }
+        }
+
         [HttpPost("PostUser")]
         public ActionResult<UserDTO> PostUser([FromBody] UserViewModel usuario)
         {
             try
             {
-                var response = _userService.PostUser(usuario);
-                if (response == null)
+                var role = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
+                if (role == "superadmin")
                 {
-                    return NotFound("No existe ningún usuario");
+                    var response = _userService.PostUser(usuario);
+                    if (response == null)
+                    {
+                        return NotFound("No pudo agregarse el usuario");
+                    }
+                    string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
+                    string apiAndEndPointUrl = $"api/User/GetUsers";
+                    string locationUrl = $"{baseUrl}/{apiAndEndPointUrl}/{response.Id}";
+                    return Created(locationUrl, response);
                 }
-                string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
-                string apiAndEndPointUrl = $"api/User/GetUsers";
-                string locationUrl = $"{baseUrl}/{apiAndEndPointUrl}/{response.Id}";
-                return Created(locationUrl, response);
+                else
+                {
+                    throw new Exception("No tiene permisos para acceder.");
+                }
             }
             catch(Exception exe)
             {
@@ -103,11 +143,19 @@ namespace Ecommerce.Controllers
         {
             try
             {
-                var response = _userService.PutUser(usuario);
-                string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
-                string apiAndEndPointUrl = $"api/User/GetUsers";
-                string locationUrl = $"{baseUrl}/{apiAndEndPointUrl}/{response.Id}";
-                return Created(locationUrl, response);
+                var role = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
+                if (role == "superadmin")
+                {
+                    var response = _userService.PutUser(usuario);
+                    string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
+                    string apiAndEndPointUrl = $"api/User/GetUsers";
+                    string locationUrl = $"{baseUrl}/{apiAndEndPointUrl}/{response.Id}";
+                    return Created(locationUrl, response);
+                }
+                else
+                {
+                    throw new Exception("No tiene permisos para acceder.");
+                }
             }
             catch (Exception exe)
             {
@@ -122,8 +170,16 @@ namespace Ecommerce.Controllers
         {
             try
             {
-                _userService.DeleteUser(id);
-                return Ok();
+                var role = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
+                if (role == "superadmin")
+                {
+                    _userService.DeleteUser(id);
+                    return Ok();
+                }
+                else
+                {
+                    throw new Exception("No tiene permisos para acceder.");
+                }
             }
             catch (Exception exe)
             {

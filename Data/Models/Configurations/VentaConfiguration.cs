@@ -12,9 +12,7 @@ namespace Data.Models.Configurations
     {
         public void Configure(EntityTypeBuilder<Venta> entity)
         {
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
 
             entity.Property(e => e.FechaVenta)
                 .HasColumnType("datetime")
@@ -31,12 +29,14 @@ namespace Data.Models.Configurations
             entity.HasOne(d => d.IdProductoNavigation)
                 .WithMany(p => p.Venta)
                 .HasForeignKey(d => d.IdProducto)
-                .HasConstraintName("FK__Venta__id_produc__2E1BDC42");
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Venta__id_produc__2B3F6F97");
 
             entity.HasOne(d => d.IdUsuarioNavigation)
                 .WithMany(p => p.Venta)
                 .HasForeignKey(d => d.IdUsuario)
-                .HasConstraintName("FK__Venta__id_usuari__2F10007B");
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Venta__id_usuari__2C3393D0");
 
             OnConfigurePartial(entity);
         }

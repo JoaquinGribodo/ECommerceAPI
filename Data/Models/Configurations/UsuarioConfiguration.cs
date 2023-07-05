@@ -12,21 +12,22 @@ namespace Data.Models.Configurations
     {
         public void Configure(EntityTypeBuilder<Usuario> entity)
         {
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
 
             entity.Property(e => e.Apellido)
+                .IsRequired()
                 .HasMaxLength(20)
                 .IsUnicode(false)
                 .HasColumnName("apellido");
 
             entity.Property(e => e.Contrasenia)
+                .IsRequired()
                 .HasMaxLength(256)
                 .IsUnicode(false)
                 .HasColumnName("contrasenia");
 
             entity.Property(e => e.Correo)
+                .IsRequired()
                 .HasMaxLength(20)
                 .IsUnicode(false)
                 .HasColumnName("correo");
@@ -34,6 +35,7 @@ namespace Data.Models.Configurations
             entity.Property(e => e.IdRol).HasColumnName("id_rol");
 
             entity.Property(e => e.Nombre)
+                .IsRequired()
                 .HasMaxLength(20)
                 .IsUnicode(false)
                 .HasColumnName("nombre");
@@ -41,7 +43,8 @@ namespace Data.Models.Configurations
             entity.HasOne(d => d.IdRolNavigation)
                 .WithMany(p => p.Usuario)
                 .HasForeignKey(d => d.IdRol)
-                .HasConstraintName("FK__Usuario__id_rol__29572725");
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Usuario__id_rol__267ABA7A");
 
             OnConfigurePartial(entity);
         }

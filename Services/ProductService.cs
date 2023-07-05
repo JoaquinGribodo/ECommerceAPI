@@ -24,6 +24,11 @@ namespace Services
             return _productRepository.GetProductById(id);
         }
 
+        public ProductDTO GetProductByDescription(string description)
+        {
+            return _productRepository.GetProductByDescription(description);
+        }
+
         public List<ProductDTO> GetProducts()
         {
             return _productRepository.GetProducts();

@@ -12,6 +12,6 @@ namespace Data.Models.DTO
         public int IdProducto { get; set; }
         public int IdUsuario { get; set; }
         public DateTime? FechaVenta { get; set; }
-        public decimal? MontoTotal { get; set; }
+        public decimal MontoTotal { get; set; }
     }
 }

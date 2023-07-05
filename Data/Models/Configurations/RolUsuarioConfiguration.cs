@@ -14,11 +14,10 @@ namespace Data.Models.Configurations
         {
             entity.ToTable("Rol_usuario");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
 
             entity.Property(e => e.Descripcion)
+                .IsRequired()
                 .HasMaxLength(20)
                 .IsUnicode(false)
                 .HasColumnName("descripcion");

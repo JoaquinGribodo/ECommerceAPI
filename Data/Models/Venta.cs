@@ -9,9 +9,9 @@ namespace Data.Models
     {
         public int Id { get; set; }
         public DateTime? FechaVenta { get; set; }
-        public decimal? MontoTotal { get; set; }
-        public int? IdProducto { get; set; }
-        public int? IdUsuario { get; set; }
+        public decimal MontoTotal { get; set; }
+        public int IdProducto { get; set; }
+        public int IdUsuario { get; set; }
 
         public virtual Producto IdProductoNavigation { get; set; }
         public virtual Usuario IdUsuarioNavigation { get; set; }

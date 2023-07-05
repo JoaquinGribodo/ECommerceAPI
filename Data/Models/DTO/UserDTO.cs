@@ -12,6 +12,6 @@ namespace Data.Models.DTO
         public string Nombre { get; set; } = string.Empty;
         public string Apellido { get; set; } = string.Empty;
         public string Correo { get; set; } = string.Empty;
-        public int? IdRol { get; set; }
+        public int IdRol { get; set; }
     }
 }

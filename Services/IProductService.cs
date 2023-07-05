@@ -13,6 +13,7 @@ namespace Services
     {
         List<ProductDTO> GetProducts();
         ProductDTO GetProductById(int id);
+        ProductDTO GetProductByDescription(string description);
         ProductDTO PostProduct(ProductViewModel producto);
         ProductDTO PutProduct(ProductViewModel producto);
         void DeleteProduct(int id);

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services;
+using System.Security.Claims;
 
 namespace Ecommerce.Controllers
 {
@@ -27,12 +28,21 @@ namespace Ecommerce.Controllers
         {
             try
             {
-                var response = _productService.GetProducts();
-                if (response.Count == 0)
+                var role = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
+                if(role == "admin" || role == "superadmin" || role == "user")
                 {
-                    return NotFound("No pudo encontrarse la lista de productos.");
+                    var response = _productService.GetProducts();
+                    if (response.Count == 0)
+                    {
+                        return NotFound("No pudo encontrarse la lista de productos.");
+                    }
+                    return Ok(response);
                 }
-                return Ok(response);
+                else
+                {
+                    throw new Exception("No tiene permisos para acceder.");
+                }
+
             }
             catch (Exception exe)
             {
@@ -47,12 +57,21 @@ namespace Ecommerce.Controllers
         {
             try
             {
-                var response = _productService.GetProductById(id);
-                if (response == null)
+                var role = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
+                if (role == "admin" || role == "superadmin" || role == "user")
                 {
-                    return NotFound("No pudo encontrarse la lista de productos.");
+                    var response = _productService.GetProductById(id);
+                    if (response == null)
+                    {
+                        return NotFound("No pudo encontrarse el producto correspondiente a esa ID.");
+                    }
+                    return Ok(response);
                 }
-                return Ok(response);
+                else
+                {
+                    throw new Exception("No tiene permisos para acceder.");
+
+                }
             }
             catch (Exception exe)
             {
@@ -61,21 +80,58 @@ namespace Ecommerce.Controllers
             }
             
         }
+        
+        [HttpGet("GetProductByDescription/{description}")]
+        public ActionResult<ProductDTO> GetProductByDescription(string description)
+        {
+            try
+            {
+                var role = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
+                if (role == "admin" || role == "superadmin")
+                {
+                    var response = _productService.GetProductByDescription(description);
+                    if (response == null)
+                    {
+                        return NotFound("No pudo encontrarse el producto con esa descripción.");
+                    }
+                    return Ok(response);
+                }
+                else
+                {
+                    throw new Exception("No tiene permisos para acceder.");
+                }
+            }
+            catch (Exception exe)
+            {
+                _logger.LogError($"Ocurrió un error en el método GetProductByDescription: {exe.Message}");
+                return BadRequest($"{exe.Message}");
+            }
+        }
+
 
         [HttpPost("PostProduct")]
         public ActionResult<ProductDTO> PostProduct([FromBody] ProductViewModel producto)
         {
             try
             {
-                var response = _productService.PostProduct(producto);
-                if (response == null)
+                var role = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
+                if(role == "admin" || role == "superadmin")
                 {
-                    return NotFound("No pudo agregarse el producto.");
+                    var response = _productService.PostProduct(producto);
+                    if (response == null)
+                    {
+                        return NotFound("No pudo agregarse el producto.");
+                    }
+                    string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}"; //Devolver la ubicación con la cual se accede al recurso creado
+                    string apiAndEndPointUrl = $"api/Product/GetProducts";
+                    string locationUrl = $"{baseUrl}/{apiAndEndPointUrl}/{response.Id}";
+                    return Created(locationUrl, response); //El primer parámetro es el header y el segundo parámetro es el body
                 }
-                string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}"; //Devolver la ubicación con la cual se accede al recurso creado
-                string apiAndEndPointUrl = $"api/Product/GetProducts";
-                string locationUrl = $"{baseUrl}/{apiAndEndPointUrl}/{response.Id}";
-                return Created(locationUrl, response); //El primer parámetro es el header y el segundo parámetro es el body
+                else
+                {
+                    throw new Exception("No tiene permisos para acceder.");
+
+                }
             }
             catch (Exception exe)
             {
@@ -90,11 +146,19 @@ namespace Ecommerce.Controllers
         {
             try
             {
-                var response = _productService.PutProduct(producto);
-                string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
-                string apiAndEndPointUrl = $"api/Product/GetProducts";
-                string locationUrl = $"{baseUrl}/{apiAndEndPointUrl}/{response.Id}";
-                return Created(locationUrl, response);
+                var role = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
+                if(role == "admin" || role == "superadmin")
+                {
+                    var response = _productService.PutProduct(producto);
+                    string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.ToUriComponent()}";
+                    string apiAndEndPointUrl = $"api/Product/GetProducts";
+                    string locationUrl = $"{baseUrl}/{apiAndEndPointUrl}/{response.Id}";
+                    return Created(locationUrl, response);
+                }
+                else
+                {
+                    throw new Exception("No tiene permisos para acceder.");
+                }
             }
             catch (Exception exe)
             {
@@ -109,8 +173,16 @@ namespace Ecommerce.Controllers
         {
             try
             {
-                _productService.DeleteProduct(id);
-                return Ok();
+                var role = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
+                if(role == "admin" || role == "superadmin")
+                {
+                    _productService.DeleteProduct(id);
+                    return Ok();
+                }
+                else
+                {
+                    throw new Exception("No tiene permisos para acceder.");
+                }
             }
             catch (Exception exe)
             {

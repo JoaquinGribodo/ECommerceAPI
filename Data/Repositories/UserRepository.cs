@@ -50,6 +50,11 @@ namespace Data.Repositories
             //}
             //return response;
         }
+
+        public UserDTO GetUserByEmail(string email)
+        {
+            return _mapper.Map<UserDTO>(_dbContext.Usuario.FirstOrDefault(x => x.Correo.ToLower() == email.ToLower()));
+        }
         public UserDTO PostUser(UserViewModel usuario)
         {
 
@@ -59,7 +64,7 @@ namespace Data.Repositories
               Nombre = usuario.Nombre,
               Correo = usuario.Correo,
               Contrasenia = usuario.Contrasenia,
-              IdRol = _dbContext.RolUsuario.First(f => f.Id == usuario.IdRol).Id
+              IdRol = usuario.IdRol
             });
             _dbContext.SaveChanges();
 
@@ -75,7 +80,7 @@ namespace Data.Repositories
             usuarioDataBase.Correo = usuario.Correo;
             usuarioDataBase.Apellido = usuario.Apellido;
             usuarioDataBase.Contrasenia = usuario.Contrasenia;
-            usuarioDataBase.IdRol = _dbContext.RolUsuario.First(f => f.Id == usuario.IdRol).Id; //REVISAR
+            usuarioDataBase.IdRol = usuario.IdRol; //Modificar DB, rol not null
 
             _dbContext.SaveChanges();
 

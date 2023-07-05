@@ -16,7 +16,7 @@ namespace Data.Models
         public string Descripcion { get; set; }
         public decimal? SubTotal { get; set; }
         public int? IdUsuario { get; set; }
-        public decimal? PrecioUnitario { get; set; }
+        public decimal PrecioUnitario { get; set; }
 
         public virtual ICollection<Venta> Venta { get; set; }
     }

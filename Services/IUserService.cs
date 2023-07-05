@@ -13,6 +13,7 @@ namespace Services
     {
         List<UserDTO> GetUsers();
         UserDTO GetUserById(int id);
+        UserDTO GetUserByEmail(string email);
         UserDTO PostUser(UserViewModel usuario);
         UserDTO PutUser(UserViewModel usuario);
         void DeleteUser(int id);

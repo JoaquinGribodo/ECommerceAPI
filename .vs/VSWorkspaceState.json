@@ -2,12 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\Data",
-    "\\Data\\Repositories",
+    "\\Data\\Mappings",
     "\\Ecommerce",
     "\\Ecommerce\\Controllers",
     "\\Services",
     "\\Services\\Helper"
   ],
-  "SelectedNode": "\\Data\\Repositories\\UserRepository.cs",
+  "SelectedNode": "\\Ecommerce\\Controllers\\AuthenticationController.cs",
   "PreviewInSolutionExplorer": false
 }

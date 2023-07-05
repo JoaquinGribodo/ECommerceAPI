@@ -12,11 +12,10 @@ namespace Data.Models.Configurations
     {
         public void Configure(EntityTypeBuilder<Producto> entity)
         {
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
 
             entity.Property(e => e.Descripcion)
+                .IsRequired()
                 .HasMaxLength(20)
                 .IsUnicode(false)
                 .HasColumnName("descripcion");

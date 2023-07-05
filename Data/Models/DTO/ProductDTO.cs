@@ -11,6 +11,6 @@ namespace Data.Models.DTO
         public int Id { get; set; }
         public string Descripcion { get; set; } = string.Empty;
         public decimal? SubTotal { get; set; }
-        public decimal? PrecioUnitario { get; set; }
+        public decimal PrecioUnitario { get; set; }
     }
 }

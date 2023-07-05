@@ -33,6 +33,11 @@ namespace Data.Repositories
             return _mapper.Map<ProductDTO>(_dbContext.Producto.FirstOrDefault(x => x.Id == id));
 
         }
+
+        public ProductDTO GetProductByDescription(string description)
+        {
+            return _mapper.Map<ProductDTO>(_dbContext.Producto.FirstOrDefault(x => x.Descripcion.ToLower() == description.ToLower()));
+        }
         public ProductDTO PostProduct(ProductViewModel producto) //ViewModel: ingresa un producto nuevo
         {                                                        //DTO: trae datos de la BD para el frontend
             _dbContext.Producto.Add(new Producto()
@@ -54,7 +59,6 @@ namespace Data.Repositories
             productoDataBase.Descripcion = producto.Descripcion;
             productoDataBase.PrecioUnitario = producto.PrecioUnitario;
             productoDataBase.SubTotal = producto.SubTotal;
-            //productoDataBase.Venta = producto.Venta; CONSULTAR
 
             _dbContext.SaveChanges();
 

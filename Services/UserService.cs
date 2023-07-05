@@ -24,6 +24,11 @@ namespace Services
             return _userRepository.GetUsers();
         }
 
+        public UserDTO GetUserByEmail(string email)
+        {
+            return _userRepository.GetUserByEmail(email);
+        }
+
         public UserDTO PutUser(UserViewModel usuario)
         {
             return _userRepository.PutUser(usuario);
