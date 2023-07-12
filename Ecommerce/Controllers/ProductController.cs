@@ -108,6 +108,33 @@ namespace Ecommerce.Controllers
             }
         }
 
+        [HttpGet("GetTopSellingProducts")]
+        public ActionResult<List<ProductDTO>> GetTopSellingProducts()
+        {
+            try
+            {
+                var role = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
+                if (role == "admin" || role == "superadmin" || role == "user")
+                {
+                    var response = _productService.GetTopSellingProducts(3);
+                    if (response.Count == 0)
+                    {
+                        return NotFound("No se encontraron productos.");
+                    }
+                    return Ok(response);
+                }
+                else
+                {
+                    throw new Exception("No tiene permisos para acceder.");
+                }
+            }
+            catch (Exception exe)
+            {
+                _logger.LogError($"Ocurrió un error en el método GetTopSellingProducts: {exe.Message}");
+                return BadRequest($"{exe.Message}");
+            }
+        }
+
 
         [HttpPost("PostProduct")]
         public ActionResult<ProductDTO> PostProduct([FromBody] ProductViewModel producto)

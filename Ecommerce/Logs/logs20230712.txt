@@ -1,0 +1,62 @@
+2023-07-12 16:20:29.688 -03:00 [ERR] Ocurrió un error en el método GetProductByDescription: No tiene permisos para acceder.
+2023-07-12 16:21:47.524 -03:00 [ERR] Ocurrió un error en el método PostProduct: No tiene permisos para acceder.
+2023-07-12 16:21:59.360 -03:00 [ERR] Ocurrió un error en el método PutProduct: No tiene permisos para acceder.
+2023-07-12 16:22:10.454 -03:00 [ERR] Ocurrió un error en el método DeleteProduct: No tiene permisos para acceder.
+2023-07-12 16:22:24.202 -03:00 [ERR] Ocurrió un error en el método GetSales: No tiene permisos para acceder.
+2023-07-12 16:22:26.804 -03:00 [ERR] Ocurrió un error en el método GetSales/id: No tiene permisos para acceder.
+2023-07-12 16:22:34.584 -03:00 [ERR] Ocurrió un error en el método GetSales/id: No tiene permisos para acceder.
+2023-07-12 16:22:41.648 -03:00 [ERR] Ocurrió un error en el método PutSale/id: No tiene permisos para acceder.
+2023-07-12 16:22:49.453 -03:00 [ERR] Ocurrió un error en el método DeleteSale/id: No tiene permisos para acceder.
+2023-07-12 16:23:04.259 -03:00 [ERR] Ocurrió un error en el método GetUsers: No tiene permisos para acceder.
+2023-07-12 16:23:07.046 -03:00 [ERR] Ocurrió un error en el método GetUsers/id: No tiene permisos para acceder.
+2023-07-12 16:23:24.699 -03:00 [ERR] Ocurrió un error en el método GetProductByDescription: No tiene permisos para acceder.
+2023-07-12 16:23:36.443 -03:00 [ERR] Ocurrió un error en el método PostUser: No tiene permisos para acceder.
+2023-07-12 16:23:41.857 -03:00 [ERR] Ocurrió un error en el método PutUser: No tiene permisos para acceder.
+2023-07-12 16:23:49.363 -03:00 [ERR] Ocurrió un error en el método DeleteUser: No tiene permisos para acceder.
+2023-07-12 16:33:40.873 -03:00 [ERR] Ocurrió un error en el método DeleteProduct: Sequence contains no elements
+2023-07-12 17:22:45.250 -03:00 [ERR] An exception occurred in the database while saving changes for context type 'Data.Models.ECommerceDBContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK__Venta__id_usuari__2C3393D0". The conflict occurred in database "ECommerceDB5", table "dbo.Usuario", column 'id'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+ClientConnectionId:ad7d5295-1669-473e-942b-42b7d8256521
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(StateManager stateManager, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK__Venta__id_usuari__2C3393D0". The conflict occurred in database "ECommerceDB5", table "dbo.Usuario", column 'id'.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   at Microsoft.Data.SqlClient.SqlDataReader.Read()
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSet(Int32 startCommandIndex, RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+ClientConnectionId:ad7d5295-1669-473e-942b-42b7d8256521
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.Consume(RelationalDataReader reader)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.SqlServer.Update.Internal.SqlServerModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(StateManager stateManager, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+2023-07-12 17:22:45.465 -03:00 [ERR] Ocurrió un error en el método GetSales/id: An error occurred while saving the entity changes. See the inner exception for details.

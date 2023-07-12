@@ -29,6 +29,10 @@ namespace Services
             return _productRepository.GetProductByDescription(description);
         }
 
+        public List<ProductDTO> GetTopSellingProducts(int top) 
+        {
+            return _productRepository.GetTopSellingProducts(top);
+        }
         public List<ProductDTO> GetProducts()
         {
             return _productRepository.GetProducts();

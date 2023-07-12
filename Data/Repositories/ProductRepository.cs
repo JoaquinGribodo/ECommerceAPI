@@ -4,6 +4,7 @@ using Data.Mappings;
 using Data.Models;
 using Data.Models.DTO;
 using Data.Models.ViewModel;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,31 @@ namespace Data.Repositories
         {
             return _mapper.Map<ProductDTO>(_dbContext.Producto.FirstOrDefault(x => x.Descripcion.ToLower() == description.ToLower()));
         }
+        public List<ProductDTO> GetTopSellingProducts(int top)
+        {
+            var topSellingProducts = _dbContext.Venta
+                .GroupBy(v => v.IdProducto)
+                .Select(g => new { IdProducto = g.Key, Count = g.Count() })
+                .OrderByDescending(x => x.Count)
+                .Take(top)
+                .ToList();
+
+            var topSellingProductIds = topSellingProducts.Select(x => x.IdProducto).ToList();
+
+            var products = _dbContext.Producto
+                .Where(p => topSellingProductIds.Contains(p.Id))
+                .Select(p => new ProductDTO
+                {
+                    Id = p.Id,
+                    Descripcion = p.Descripcion,
+                    SubTotal = p.SubTotal,
+                    PrecioUnitario = p.PrecioUnitario
+                })
+                .ToList();
+
+            return products;
+        }
+
         public ProductDTO PostProduct(ProductViewModel producto) //ViewModel: ingresa un producto nuevo
         {                                                        //DTO: trae datos de la BD para el frontend
             _dbContext.Producto.Add(new Producto()
