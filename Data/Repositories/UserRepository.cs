@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Common;
 
 namespace Data.Repositories
 {
@@ -64,7 +64,7 @@ namespace Data.Repositories
               Apellido = usuario.Apellido,
               Nombre = usuario.Nombre,
               Correo = usuario.Correo,
-              Contrasenia = usuario.Contrasenia,
+              Contrasenia = usuario.Contrasenia.GetSHA256(),
               IdRol = usuario.IdRol
             });
             _dbContext.SaveChanges();
@@ -80,7 +80,7 @@ namespace Data.Repositories
             usuarioDataBase.Nombre = usuario.Nombre;
             usuarioDataBase.Correo = usuario.Correo;
             usuarioDataBase.Apellido = usuario.Apellido;
-            usuarioDataBase.Contrasenia = usuario.Contrasenia;
+            usuarioDataBase.Contrasenia = usuario.Contrasenia.GetSHA256();
             usuarioDataBase.IdRol = usuario.IdRol; //Modificar DB, rol not null
 
             _dbContext.SaveChanges();

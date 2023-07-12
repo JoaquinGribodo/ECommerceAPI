@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.Helper
+namespace Common
 {
     public static class EncryptHelper
     {
@@ -22,4 +22,3 @@ namespace Services.Helper
 
     }
 }
-

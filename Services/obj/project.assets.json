@@ -1063,11 +1063,22 @@
           }
         }
       },
+      "Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Common.dll": {}
+        }
+      },
       "Data/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
           "AutoMapper": "12.0.1",
+          "Common": "1.0.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.5"
         },
         "compile": {
@@ -3262,6 +3273,11 @@
         "version.txt"
       ]
     },
+    "Common/1.0.0": {
+      "type": "project",
+      "path": "../Common/Common.csproj",
+      "msbuildProject": "../Common/Common.csproj"
+    },
     "Data/1.0.0": {
       "type": "project",
       "path": "../Data/Data.csproj",
@@ -3270,6 +3286,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Common >= 1.0.0",
       "Data >= 1.0.0"
     ]
   },
@@ -3300,6 +3317,9 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
+            "C:\\Users\\Usuario\\Desktop\\UTN\\Segundo año - Primer cuatrimestre\\Programación III\\ECommerceAPI\\Common\\Common.csproj": {
+              "projectPath": "C:\\Users\\Usuario\\Desktop\\UTN\\Segundo año - Primer cuatrimestre\\Programación III\\ECommerceAPI\\Common\\Common.csproj"
+            },
             "C:\\Users\\Usuario\\Desktop\\UTN\\Segundo año - Primer cuatrimestre\\Programación III\\ECommerceAPI\\Data\\Data.csproj": {
               "projectPath": "C:\\Users\\Usuario\\Desktop\\UTN\\Segundo año - Primer cuatrimestre\\Programación III\\ECommerceAPI\\Data\\Data.csproj"
             }

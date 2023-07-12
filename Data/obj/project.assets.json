@@ -1171,6 +1171,16 @@
             "rid": "win"
           }
         }
+      },
+      "Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Common.dll": {}
+        }
       }
     }
   },
@@ -3532,11 +3542,17 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "Common/1.0.0": {
+      "type": "project",
+      "path": "../Common/Common.csproj",
+      "msbuildProject": "../Common/Common.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "AutoMapper >= 12.0.1",
+      "Common >= 1.0.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.5",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.5"
     ]
@@ -3567,7 +3583,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Usuario\\Desktop\\UTN\\Segundo año - Primer cuatrimestre\\Programación III\\ECommerceAPI\\Common\\Common.csproj": {
+              "projectPath": "C:\\Users\\Usuario\\Desktop\\UTN\\Segundo año - Primer cuatrimestre\\Programación III\\ECommerceAPI\\Common\\Common.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

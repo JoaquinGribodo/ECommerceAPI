@@ -5,9 +5,8 @@
     "\\Data\\Mappings",
     "\\Ecommerce",
     "\\Ecommerce\\Controllers",
-    "\\Services",
-    "\\Services\\Helper"
+    "\\Services"
   ],
-  "SelectedNode": "\\Ecommerce.sln",
+  "SelectedNode": "\\Services\\AuthService.cs",
   "PreviewInSolutionExplorer": false
 }
