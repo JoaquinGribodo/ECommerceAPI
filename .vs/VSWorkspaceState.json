@@ -3,10 +3,11 @@
     "",
     "\\Data",
     "\\Data\\Mappings",
+    "\\Data\\Repositories",
     "\\Ecommerce",
     "\\Ecommerce\\Controllers",
     "\\Services"
   ],
-  "SelectedNode": "\\Ecommerce.sln",
+  "SelectedNode": "\\Data\\Repositories\\ProductRepository.cs",
   "PreviewInSolutionExplorer": false
 }
