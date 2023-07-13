@@ -56,7 +56,6 @@ namespace Data.Repositories
                 {
                     Id = p.Id,
                     Descripcion = p.Descripcion,
-                    SubTotal = p.SubTotal,
                     PrecioUnitario = p.PrecioUnitario
                 })
                 .ToList();
@@ -69,7 +68,6 @@ namespace Data.Repositories
             _dbContext.Producto.Add(new Producto()
             {
                 Descripcion = producto.Descripcion,
-                SubTotal = producto.SubTotal,
                 PrecioUnitario= producto.PrecioUnitario
             });
             _dbContext.SaveChanges();
@@ -84,7 +82,6 @@ namespace Data.Repositories
 
             productoDataBase.Descripcion = producto.Descripcion;
             productoDataBase.PrecioUnitario = producto.PrecioUnitario;
-            productoDataBase.SubTotal = producto.SubTotal;
 
             _dbContext.SaveChanges();
 

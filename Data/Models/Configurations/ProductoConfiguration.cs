@@ -20,15 +20,9 @@ namespace Data.Models.Configurations
                 .IsUnicode(false)
                 .HasColumnName("descripcion");
 
-            entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
-
             entity.Property(e => e.PrecioUnitario)
                 .HasColumnType("decimal(18, 0)")
                 .HasColumnName("precio_unitario");
-
-            entity.Property(e => e.SubTotal)
-                .HasColumnType("decimal(18, 0)")
-                .HasColumnName("sub_total");
 
             OnConfigurePartial(entity);
         }

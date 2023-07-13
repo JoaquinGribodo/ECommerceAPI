@@ -32,21 +32,29 @@ namespace Data.Repositories
             return _mapper.Map<SaleDTO>(_dbContext.Venta.FirstOrDefault(x => x.Id == id));
 
         }
-        public SaleDTO PostSale(SaleViewModel venta) 
-        {                                                        
-            _dbContext.Venta.Add(new Venta()
+        public SaleDTO PostSale(SaleViewModel venta)
+        {
+            var product = _dbContext.Producto.FirstOrDefault(p => p.Id == venta.IdProducto);
+            if (product == null)
             {
-                IdProducto = venta.IdProducto,
-                IdUsuario = venta.IdUsuario,
-                FechaVenta = venta.FechaVenta,
-                MontoTotal = venta.MontoTotal,
-            });
-            _dbContext.SaveChanges();
+                return new SaleDTO {MontoTotal = 0};
+            }
+            else
+            {
+                var sale = new Venta()
+                {
+                    IdProducto = venta.IdProducto,
+                    IdUsuario = venta.IdUsuario,
+                    FechaVenta = venta.FechaVenta,
+                    MontoTotal = product.PrecioUnitario,
+                };
+                _dbContext.Venta.Add(sale);
+                _dbContext.SaveChanges();
 
-            var lastSale = _dbContext.Venta.OrderBy(x => x.Id).Last();
-
-            return _mapper.Map<SaleDTO>(lastSale);
+                return _mapper.Map<SaleDTO>(sale);
+            }
         }
+
         public SaleDTO PutSale(SaleViewModel venta)
         {
             Venta ventaDataBase = _dbContext.Venta.Single(f => f.Id == venta.Id);

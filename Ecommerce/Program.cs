@@ -39,7 +39,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//Inyecciones de Dependencias:
+//Inyecciones de Dependencias: Scope: cada vez que haya una sesión/solicitud, se instancia.
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<IUserService,UserService>();
 builder.Services.AddScoped<ProductRepository>();
@@ -67,10 +67,10 @@ builder.Services.AddAuthentication(options =>
     options.SaveToken = true;
     options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
     {
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(key),
-        ValidateIssuer = false,
-        ValidateAudience = false
+        ValidateIssuerSigningKey = true, //Se valida la llave del emisor
+        IssuerSigningKey = new SymmetricSecurityKey(key), //Se utiliza para establecer la clave de firma del emisor que se utilizará para validar la firma del token.
+        ValidateIssuer = false, //No se valida al emisor del Token
+        ValidateAudience = false //No se valida el público del Token
     };
 });
 

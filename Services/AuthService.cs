@@ -75,13 +75,13 @@ namespace Service.Services
             var tokenDescriptor = new SecurityTokenDescriptor()
             {
                 Subject = new ClaimsIdentity(
-                    new Claim[]
+                    new Claim[] //Información acerca del usuario, están en el payload
                     {
                         new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                         new Claim(ClaimTypes.Email, user.Correo),
                         new Claim(ClaimTypes.Role, _dbContext.RolUsuario.First(x => x.Id == user.IdRol).Descripcion)
                     }),
-                Expires = DateTime.UtcNow.AddHours(1),
+                Expires = DateTime.UtcNow.AddHours(1), //Tiempo de expiración
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 

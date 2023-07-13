@@ -19,7 +19,7 @@ namespace Data.Mappings.Profiles
             CreateMap<ProductViewModel, Producto>();
 
             CreateMap<List<Producto>, List<ProductDTO>>()
-                .ConvertUsing(src => src.Select(e => new ProductDTO { Id = e.Id, Descripcion = e.Descripcion, PrecioUnitario = e.PrecioUnitario, SubTotal = e.SubTotal }).ToList());
+                .ConvertUsing(src => src.Select(e => new ProductDTO { Id = e.Id, Descripcion = e.Descripcion, PrecioUnitario = e.PrecioUnitario}).ToList());
         }
     }
 }
